@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  </head>
+  <body>
+    <div class="center">
+      <h1>Регистрация</h1>
+      <form method="POST">
+          {% csrf_token %}
+        <div class="txt_field">
+          <input type="text" name="username" required>
+          <span></span>
+          <label>Логин</label>
+        </div>
+        <div class="txt_field">
+          <input type="text" name="email" required>
+          <span></span>
+          <label>Почта</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" name="password1" required>
+          <span></span>
+          <label>Пароль</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" name="password2" required>
+            <span></span>
+            <label>Повторите пароль</label>
+          </div>
+        <input type="submit" value="Зарегистрироваться">
+        <div class="signup_link">
+          Уже есть учетная запись? <a href="{% url 'login' %}">Войдите</a>
+        </div>
+      </form>
+    </div>
+    </body>
+</html>

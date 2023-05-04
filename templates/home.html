@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  </head>
+  <body>
+    <div id="nav-bar">
+        <img id="main-logo" src="{% static 'img/logo.png' %}" alt="logo">
+        <h1 id="name">HireMeNow</h1>
+    </div>
+    <div class="container">
+      <form action="" id="src_field">
+        <input type="text" placeholder="Введите имя пользователя">
+        <button type="submit"><img id="search" src="{% static 'img/search.png' %}" alt="search"></button>
+      </form> 
+    </div>
+  </body>
+</html>

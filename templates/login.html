@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  </head>
+  <body>
+    <div class="center">
+      <h1>Вход</h1>
+        {% for message in messages %}
+            <h5>{{ message }}</h5>
+        {% endfor %}
+      <form method="POST">
+          {% csrf_token %}
+        <div class="txt_field">
+          <input type="text" name="username" required>
+          <span></span>
+          <label>Логин</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" name="password" required>
+          <span></span>
+          <label>Пароль</label>
+        </div>
+        <a href="recovery.html" class="pass">Забыли пароль?</a>
+        <input type="submit" value="Войти">
+        <div class="signup_link">
+          Нет учетной записи? <a href="{% url 'register' %}">Зарегистрируйтесь</a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabriela&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Iceberg&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gabriela", serif;
+}
+body{
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  background: linear-gradient(110.2deg, rgba(203, 193, 253, 0.8) 7%, rgba(160, 168, 240, 0.8) 36.37%, rgba(151, 135, 203, 0.8) 55.83%, rgba(85, 61, 139, 0.8) 83.36%), linear-gradient(180.21deg, #FEF2FF 0.19%, #A0A8F0 27.03%);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: #553d8b;
+}
+#nav-bar{
+  box-sizing: border-box;
+  position: absolute;
+  width: 1920px;
+  height: 80px;
+  left: 0px;
+  top: 0px;
+  background: #CBC1FD;
+  border-bottom: 2px solid #553D8B;
+}
+#main-logo{
+  position: absolute;
+  width: 77px;
+  height: 77px;
+  left: 5px;
+  top: 0px;  
+}
+#name{
+    position: absolute;
+    width: 201px;
+    height: 49px;
+    left: 99px;
+    top: 15px;
+    font-family: 'Iceberg';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 49px;
+}
+.container{
+  width: 100%;
+  min-height: 100vh;
+  padding: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#src_field{
+    width: 100%;
+    max-width: 1100px;
+    height: 65px;
+    top: 190px;
+    background: rgba(254, 242, 255, 0.3);
+    border: 1px solid #553D8B;
+    border-radius: 20px;
+}
+#search{
+  width: 85px;
+  height: 85px;
+}
