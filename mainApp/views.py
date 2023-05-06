@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.utils.encoding import force_bytes, force_str
 from .token import account_activation_token
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from .forms import SignupForm
 from django.contrib.sites.shortcuts import get_current_site
@@ -141,17 +141,45 @@ def chat(request, pk):
         Q(sender=opponent, getter=request.user)
     )
     users = User.objects.all()
-    if request.method == 'POST':
-        message = Message.objects.create(
-            sender=request.user,
-            getter=opponent,
-            body=request.POST.get('text')
-        )
-        return redirect('chat', pk=pk)
+    # if request.method == 'POST':
+    #     message = Message.objects.create(
+    #         sender=request.user,
+    #         getter=opponent,
+    #         body=request.POST.get('text')
+    #     )
+    #     return redirect('chat', pk=pk)
 
     context = {
         'opponent': opponent,
         'dialogue_messages': dialogue_messages,
-        'users': users
+        'users': users,
+        'inside': True
     }
     return render(request, 'chat.html', context)
+
+@login_required()
+def chat_template(request):
+    context = {
+        'users': User.objects.all(),
+        'inside': False
+    }
+    return render(request, 'chat.html', context)
+
+
+def send(request):
+    body = request.POST.get('body')
+    sender = request.POST.get('sender')
+    getter = request.POST.get('getter')
+
+    new_message = Message.objects.create(body=body, sender=sender, getter=getter)
+    new_message.save()
+    return HttpResponse('All good')
+
+def get_messages(request, pk):
+    opponent = User.objects.get(id=pk)
+    dialogue_messages = Message.objects.filter(
+        Q(sender=request.user.username, getter=opponent.username) |
+        Q(sender=opponent.username, getter=request.user.username)
+    )
+    return JsonResponse({"messages": list(dialogue_messages.values())})
+

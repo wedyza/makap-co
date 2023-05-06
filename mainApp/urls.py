@@ -11,5 +11,9 @@ urlpatterns = [
     path('recovery/', views.recoveryPage, name='recovery'),
     path('activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', activate, name='activate'),
     path('reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', reset_password, name='reset_password'),
-    path('chat/<str:pk>', views.chat, name='chat')
+
+    path('chat/<str:pk>', views.chat, name='chat'),
+    path('chat/', views.chat_template, name='chat'),
+    path('send/', views.send, name='send'),
+    path('getMessages/<str:pk>/', views.get_messages, name='get-messages')
 ]

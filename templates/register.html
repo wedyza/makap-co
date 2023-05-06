@@ -10,6 +10,9 @@
       <h1>Регистрация</h1>
       <form method="POST">
           {% csrf_token %}
+          {% for message in messages %}
+              <p>{{ message }}</p>
+          {% endfor %}
         <div class="txt_field">
           <input type="text" name="username" required>
           <span></span>

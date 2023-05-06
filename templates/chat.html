@@ -4,6 +4,7 @@
 <html lang="ru" dir="ltr">
   <head>
     <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+      <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
   </head>
   <body>
     <main>
@@ -32,36 +33,99 @@
                     {% endif %}
                 {% endfor %}
 			</div>
+        {% if inside %}
 			<div class="chat-window">
 				<div class="chats">
 					<div class="user-join">
 						<p>Диалог с <b>{{ opponent.username }}</b></p>
 					</div>
-                    {% for message in dialogue_messages %}
-                        {% if message.sender == request.user%}
-                            <div class="message incoming">
-                                <p>{{ message.body }} <small>{{ message.created|timesince }} ago</small> </p>
+                    <div class="messages-container">
 
-                            </div>
-                        {% else %}
-                            <div class="message outgoing">
-                                <p>{{ message.body }} <small>{{ message.created|timesince }} ago</small> </p>
-
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+                    </div>
+{#                    {% for message in dialogue_messages %}#}
+{#                        {% if message.sender == request.user%}#}
+{#                            <div class="message incoming">#}
+{#                                <p>{{ message.body }} <small>{{ message.created|timesince }} ago</small> </p>#}
+{##}
+{#                            </div>#}
+{#                        {% else %}#}
+{#                            <div class="message outgoing">#}
+{#                                <p>{{ message.body }} <small>{{ message.created|timesince }} ago</small> </p>#}
+{##}
+{#                            </div>#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
 				</div>
-				<form class="user-input" method="POST">
+				<form class="user-input" method="POST" id="post-form">
                     {% csrf_token %}
+                    <input id="sender" value="{{ request.user.username }}" type="hidden"/>
+                    <input id="getter" value="{{ opponent.username }}" type="hidden"/>
 					<input id="main-input" type="text" name="text" placeholder="Напишите сообщение...">
-					<label id="clip">
-						<input type="file">
-					</label>
+{#					<label id="clip">#}
+{#						<input type="file">#}
+{#					</label>#}
 				<button type="submit" id="send-btn">ОТПРАВИТЬ</button>
 				</form>
 			</div>
+        {% else %}
+            <div class="chat-window">
+                <div class="user-join">
+                    <p>Выберите собеседника</p>
+                </div>
+            </div>
+        {% endif %}
 		</div>
 	</main>
+
+    <script>
+    $(document).ready(function(){
+        var f = function(){
+            $.ajax({
+                type: 'GET',
+                url : "/getMessages/{{opponent.id}}/",
+                success: function(response){
+                    $(".messages-container").empty();
+                    for (var key in response.messages)
+                    {
+                        var temp;
+                        if (response.messages[key].sender === '{{ request.user.username }}')
+                            temp="<div class='message incoming'><p>" + response.messages[key].body + "</p><small>" + response.messages[key].created.substring(11, 16) +"</small></div>";
+                        else
+                            temp="<div class='message outgoing'><p>" + response.messages[key].body + "</p><small>" + response.messages[key].created.substring(11, 16) +"</small></div>";
+                        console.log(response.messages[key]);
+                        $(".messages-container").append(temp);
+                    }
+                },
+                error: function(response){
+                    console.log('An error occured')
+                }
+            })};
+        f();
+        setInterval(f,1000);
+        })
+    </script>
+
    </body>
+
+    <script>
+          $(document).on('submit','#post-form',function(e){
+                e.preventDefault();
+                $.ajax({
+                      type:'POST',
+                      url:'/send/',
+                      data:{
+                          sender:$('#sender').val(),
+                          getter:$('#getter').val(),
+                          body:$('#main-input').val(),
+                        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                  },
+                  success: function(data){
+                     {#alert(data)#}
+                      console.log('succes')
+                  }
+                });
+                document.getElementById('main-input').value = ''
+          });
+    </script>
 </html>
 
