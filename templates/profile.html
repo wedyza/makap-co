@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+      <link rel="stylesheet" href="{% static 'css/no_underline.css' %}">
+  </head>
+  <body>
+    <div id="nav-bar">
+		<a href="{% url 'home' %}" id="header">
+			<img id="main-logo" src="{% static 'img/logo.png' %}" alt="logo">
+			<h1 id="name">HireMeNow</h1>
+		</a>
+		<div id="buttons">
+			<button class="btn" id="portfolio-list">Список портфолио</button>
+			<button class="btn" id="favorite">Избранное</button>
+			<a href="{% url 'chat_template' %}" id="chat">
+			<img src="{% static 'img/chat.png' %}" width="65px" alt="chat">
+			</a>
+			<a href="{% url 'home' %}" id="notice">
+			<img src="{% static 'img/notice.png' %}" width="50px" alt="notice">
+			</a>
+			<div id="enter">
+				<a href="{% url 'profile' request.user.username %}" class="btn" id="profile"><img id="profile-picture" src="{% static 'img/profile.png' %}" width="40px">Профиль</a>
+				<a href="{% url 'logout' %}" class="btn" id="logout">Выйти</a>
+			</div>
+		</div>
+	</div>
+	<div class="hero">
+		<div class="info">
+			<div id="education">
+				<h5 class="info-labels">Образование:</h5>
+			</div>
+			<p class="input-value">{{ user_profile.education }}</p>
+			<div id="school-name">
+				<h5>Наименование учебного заведения:</h5>
+			</div>
+			<p class="input-value">{{ user_profile.edu_base }}</p>
+			<div id="contacts">
+				<h5>Контактная информация:</h5>
+			</div>
+			<p class="input-value">{{ user_profile.contacts }}</p>
+			<div id="fav-role">
+				<h5>Желаемая должность:</h5>
+			</div>
+			<p class="input-value">{{ user_profile.level }}</p>
+			<div id="skills">
+				<h5>Навыки:</h5>
+			</div>
+			<p class="input-value">{{ user_profile.chars }}</p>
+			<div id="exp">
+				<h5>Опыт работы:</h5>
+			</div>
+			<p class="input-value">{{ user_profile.exp }}</p>
+			</div>
+		<div class="avatar-header">
+			<img class="avatar" src="{{ user_profile.avatar.url }}"/>
+            <h3 id="user-name" class="who">{{ user_profile.user.username }}</h3>
+            <h3 id="user-name">ФИО: {{ user_profile.fullName }}</h3>
+            {% if request.user == user_profile.user %}
+			<div class="btn-wrap">
+				<input id="avatar-input" type="file" accept="image/*">
+				<label for="avatar-input" id="avatar-btn">Добавить аватар</label>
+				<input id="resume-input" type="file" accept=".pdf">
+				<label for="resume-input" id="resume-btn">Прикрепить резюме</label>
+				<button class="avatar-header-btn" id="open-portfolio">Открыть портфолио</button>
+				<button class="avatar-header-btn" id="edit-portfolio">Редактировать портфолио</button>
+				<button class="avatar-header-btn" id="edit-profile">Редактировать профиль</button>
+			</div>{% endif %}
+		</div>
+	</div>
+	</body>
+</html>

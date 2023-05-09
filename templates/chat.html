@@ -15,9 +15,9 @@
                     <h1 id="name">HireMeNow</h1>
                 </div>
             </a>
-			<button type="button">
+			<a href="{% url 'chat_template' %}" type="button">
 				<img src="{% static 'img/hamburger.png' %}" width="50px">
-			</button>
+			</a>
 		</header>
 		<div class="container">
 			<div class="users-window">
@@ -28,7 +28,7 @@
                 {% for user in users %}
                     {% if request.user != user %}
                     <div class="users-list">
-                        <a href="{% url 'chat' user.id%}"><p>{{ user.username }}</p></a>
+                        <a href="{% url 'chat' user.username%}"><p>{{ user.username }}</p></a>
                     </div>
                     {% endif %}
                 {% endfor %}
@@ -40,37 +40,22 @@
 						<p>Диалог с <b>{{ opponent.username }}</b></p>
 					</div>
                     <div class="messages-container">
-
-                    </div>
-{#                    {% for message in dialogue_messages %}#}
-{#                        {% if message.sender == request.user%}#}
-{#                            <div class="message incoming">#}
-{#                                <p>{{ message.body }} <small>{{ message.created|timesince }} ago</small> </p>#}
-{##}
-{#                            </div>#}
-{#                        {% else %}#}
-{#                            <div class="message outgoing">#}
-{#                                <p>{{ message.body }} <small>{{ message.created|timesince }} ago</small> </p>#}
-{##}
-{#                            </div>#}
-{#                        {% endif %}#}
-{#                    {% endfor %}#}
-				</div>
+                </div>
+            </div>
 				<form class="user-input" method="POST" id="post-form">
                     {% csrf_token %}
                     <input id="sender" value="{{ request.user.username }}" type="hidden"/>
                     <input id="getter" value="{{ opponent.username }}" type="hidden"/>
 					<input id="main-input" type="text" name="text" placeholder="Напишите сообщение...">
-{#					<label id="clip">#}
-{#						<input type="file">#}
-{#					</label>#}
 				<button type="submit" id="send-btn">ОТПРАВИТЬ</button>
 				</form>
 			</div>
         {% else %}
             <div class="chat-window">
-                <div class="user-join">
-                    <p>Выберите собеседника</p>
+                <div class="chats">
+                    <div class="user-join">
+                        <p>Выберите собеседника</p>
+                    </div>
                 </div>
             </div>
         {% endif %}
@@ -82,7 +67,7 @@
         var f = function(){
             $.ajax({
                 type: 'GET',
-                url : "/getMessages/{{opponent.id}}/",
+                url : "/getMessages/{{opponent.username}}/",
                 success: function(response){
                     $(".messages-container").empty();
                     for (var key in response.messages)

@@ -10,14 +10,16 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
-from .models import Message
+from .models import Message, userProfile
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 
 def home(request):
+    filters = request.GET.get('text') if request.GET.get('text') != None else ''
+    users = User.objects.filter(username__icontains=filters)
     context = {
-
+        'users': users
     }
     return render(request, 'home.html', context)
 
@@ -54,7 +56,8 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        return HttpResponse('Успешно.')
+        messages.success(request, 'Вы успешно завершили регистрацию, теперь, пожалуйста, заполните свой профиль')
+        return redirect('edit-profile')
     else:
         return HttpResponse('Неправильная ссылка')
 
@@ -82,6 +85,8 @@ def registerPage(request):
             user.is_active = False
             user.save()
 
+            user_profile = userProfile.objects.create(user=user)
+
             current_site = get_current_site(request)
             mail_subject = 'Ссылка для активации аккаунта отправлена на вашу почту'
             message = render_to_string('acc_active_email.html', {
@@ -96,6 +101,8 @@ def registerPage(request):
             )
             email.send()
             return HttpResponse('Подтвердите свой адрес для завершения регистрации')
+        else:
+            messages.error(request, 'Что-то пошло не так..')
     else:
         form = SignupForm()
     return render(request, 'register.html')
@@ -133,31 +140,27 @@ def recoveryPage(request):
                 messages.error(request, 'Такого пользователя не существует')
     return render(request, 'recovery.html')
 
-@login_required
-def chat(request, pk):
-    opponent = User.objects.get(id=pk)
+@login_required(login_url='login')
+def chat(request, username):
+    opponent = User.objects.get(username=username)
     dialogue_messages = Message.objects.filter(
         Q(sender=request.user, getter=opponent) |
         Q(sender=opponent, getter=request.user)
     )
     users = User.objects.all()
-    # if request.method == 'POST':
-    #     message = Message.objects.create(
-    #         sender=request.user,
-    #         getter=opponent,
-    #         body=request.POST.get('text')
-    #     )
-    #     return redirect('chat', pk=pk)
+    count = len(users) - 1
+
 
     context = {
         'opponent': opponent,
         'dialogue_messages': dialogue_messages,
         'users': users,
-        'inside': True
+        'inside': True,
+        'counter': count
     }
     return render(request, 'chat.html', context)
 
-@login_required()
+@login_required(login_url='login')
 def chat_template(request):
     context = {
         'users': User.objects.all(),
@@ -171,15 +174,29 @@ def send(request):
     sender = request.POST.get('sender')
     getter = request.POST.get('getter')
 
+
     new_message = Message.objects.create(body=body, sender=sender, getter=getter)
     new_message.save()
     return HttpResponse('All good')
 
-def get_messages(request, pk):
-    opponent = User.objects.get(id=pk)
+def get_messages(request, username):
+    opponent = User.objects.get(username=username)
     dialogue_messages = Message.objects.filter(
         Q(sender=request.user.username, getter=opponent.username) |
         Q(sender=opponent.username, getter=request.user.username)
     )
     return JsonResponse({"messages": list(dialogue_messages.values())})
 
+def profile(request, username):
+    user = User.objects.get(username=username)
+    user_profile = userProfile.objects.get(user=user)
+    if request.method == 'POST':
+        user_profile.avatar = request.POST.get('img')
+        user_profile.save()
+    context = {
+        'user_profile': user_profile
+    }
+    return render(request, 'profile.html', context)
+
+def edit_profile(request):
+    return render(request, 'edit-profile.html')

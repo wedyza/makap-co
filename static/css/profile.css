@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comfortaa';
+}
+body{
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(110.2deg, rgba(203, 193, 253, 0.8) 7%, rgba(160, 168, 240, 0.8) 36.37%, rgba(151, 135, 203, 0.8) 55.83%, rgba(85, 61, 139, 0.8) 83.36%), linear-gradient(180.21deg, #FEF2FF 0.19%, #A0A8F0 27.03%);;
+  overflow: hidden;
+  color: #553d8b;
+}
+#header{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 5px;
+}
+#nav-bar{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background: #CBC1FD;
+  border-bottom: 2px solid #553D8B;
+}
+#buttons{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+#main-logo{
+  width: 67px;
+  height: 67px;
+}
+#name{
+  position: flex;
+  display: flex;
+  width: 216px;
+  height: 40px;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 40px;
+}
+.btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: #A0A8F0;
+  border-radius: 25px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  border: none;
+  height: 45.83px;
+  color: #553d8b;
+}
+#portfolio-list{
+  width: 272.41px;
+  cursor: pointer;
+}
+#favorite{
+  width: 166.02px;
+  cursor: pointer;
+}
+#chat{
+  display: flex;
+  align-items: center;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #CBC1FD;
+}
+#notice{
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #CBC1FD;
+}
+#profile{
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 12px;
+}
+#profile-picture{
+  border: 2px solid#FEF2FF;
+  border-radius: 50%;
+  margin-right: 15px;
+  margin-left: -5px;
+}
+#logout{
+  width: 179.61px;
+  cursor: pointer;
+}
+#enter{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+::placeholder{
+  color: #553D8B;
+}
+.hero{
+    margin: 35px auto;
+    width: 1820px;
+    max-width: 85vw;
+    height: 930px;
+    max-height: 85vh;
+    background: #FEF2FF;
+    border-radius: 50px;
+}
+.avatar-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  margin-left: 48px;
+  margin-top: -40vh;
+  position:relative;
+}
+#user-name{
+  margin-left: 15px;
+  border-radius: 20px;
+  margin-top: 6px;
+  width: 40vw;
+  max-width: 350px;
+  background-color: #FEF2FF;
+  color: #553D8B;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 22px;
+  min-height: 22px;
+}
+::placeholder{
+  text-align:center;
+}
+.avatar{
+  width: 200px;
+  height: 200px;
+  margin-left: 55px;
+  margin-top: 6px;
+  border-radius: 50%;
+  border: 4px solid #A0A8F0;
+}
+.btn-wrap{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+  width: 200px;
+}
+.btn-wrap input{
+  display: none;
+  cursor: pointer;
+}
+#avatar-btn{
+  margin-top: 8px;
+  padding: 12px;
+  gap: 8px;
+  width: 268px;
+  height: 42.83px;
+  background: #A0A8F0;
+  border-radius: 54px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+#resume-btn{
+  margin-top: 16px;
+  padding: 12px;
+  gap: 10px;
+  width: 268px;
+  height: 42.83px;
+  background: #A0A8F0;
+  border-radius: 54px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+.avatar-header-btn{
+  padding: 12px;
+  gap: 10px;
+  height: 42.83px;
+  background: #A0A8F0;
+  border-radius: 54px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  border: none;
+  color: #553D8B;
+}
+#open-portfolio{
+  width: 278px;
+  margin-top: 16px;
+}
+.who{
+  text-align: center;
+}
+#edit-portfolio{
+  width: 278px;
+  margin-top: 16px;
+}
+#edit-profile{
+  width: 278px;
+  margin-top: 16px;
+}
+.info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 90px;
+  margin-right: 20px;
+}
+.info h5{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 22px;
+}
+#education{
+  display: flex;
+  flex-direction: row;
+  margin-right: 143px;
+}
+#school-name{
+  display: flex;
+  flex-direction: row;
+  margin-left: 38px;
+  margin-top: 30px;
+}
+#contacts{
+  display: flex;
+  flex-direction: row;
+  margin-right: 76px;
+  margin-top: 30px;
+}
+#fav-role{
+  display: flex;
+  flex-direction: row;
+  margin-right: 126px;
+  margin-top: 30px;
+}
+#skills{
+  display: flex;
+  flex-direction: row;
+  margin-right: 144px;
+  margin-top: 30px;
+}
+#exp{
+  display: flex;
+  flex-direction: row;
+  margin-right: 152px;
+  margin-top: 30px;
+}
+.info p{
+  margin-left: 930px;
+  margin-top: -20px;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 22px;
+}
+.info h5{
+  margin-left: -250px;
+}
+#edu-value{
+  display: flex;
+  flex-direction: row;
+  align-items: right;
+  justify-content: right;
+  text-align: right;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 22px;
+    margin-left: 65px;
+    margin-top: -20px;
+}
+#edu-place-value{
+  display: flex;
+  flex-direction: row;
+  align-items: right;
+  justify-content: right;
+  text-align: right;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 22px;
+    margin-left: 565px;
+    margin-top: -20px;
+}
+#cont-value{
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 22px;
+}
+#role-value{
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 22px;
+}
+#skills-value{
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 22px;
+}
+#exp-value{
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 22px;
+}
+button:hover{
+  filter: brightness(0.9);
+}
+button:active{
+  transform: translateY(2px);
+}

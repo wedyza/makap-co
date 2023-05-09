@@ -1,6 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Iceberg&display=swap');
-
 *{
   margin: 0;
   padding: 0;
@@ -13,8 +11,8 @@ body{
   background: linear-gradient(0deg, rgba(203, 193, 253, 0.8) 3.45%, rgba(160, 168, 240, 0.8) 33.42%, rgba(151, 135, 203, 0.8) 62.15%, rgba(85, 61, 139, 0.8) 95.24%), linear-gradient(180.21deg, #FEF2FF 0.19%, #A0A8F0 27.03%);
   margin: 0;
   padding: 0;
-  overflow: hidden;
   color: #553d8b;
+  overflow: hidden;
 }
 main{
   position: absolute;
@@ -22,7 +20,6 @@ main{
   left: 50%;
   transform: translate(-50%,-50%);
   width: 80%;
-  overflow: hidden;
   border-radius: 10px;
 }
 header{
@@ -59,7 +56,9 @@ header button{
   justify-content: flex-start;
 }
 .users-window{
-  width: 350px;
+  overflow-y: scroll;
+  width: 64vw;
+  height: 74vh;
   color: #553D8B;
   background-color: #a0a8f0;
   padding: 15px 20px;
@@ -93,10 +92,17 @@ h4{
   width: 100%;
   border-radius: 10px;
   background-color: #a0a8f0;
+  position: relative;
 }
+
 .chats{
-  min-height: 65vh;
+  position: relative;
+  width: 64vw;
+  max-width: 1200px;
+  height: 64vh;
+  max-height: 800px;
   padding: 40px 50px;
+  overflow-y: scroll;
 }
 .user-join{
   font-size: 0.9rem;
@@ -136,6 +142,7 @@ h4{
   align-items: stretch;
   justify-content: space-between;
   padding: 20px;
+  border-top: 1px solid #553D8B;
 }
 #main-input{
   font-size: 15px;
@@ -163,7 +170,7 @@ h4{
   height: 40px;
   display: block;
   background-color: #FEF2FF;
-  background-image: url(../img/paper-clip.png);
+  background-image: url(images/paper-clip.png);
   background-size: 30px;
   background-position: center;
   background-repeat: no-repeat;
