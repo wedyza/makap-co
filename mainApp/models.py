@@ -34,3 +34,18 @@ class userProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Portfolio(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=150, blank=False)
+    image = models.ImageField(upload_to='images/', default='../static/img/photo404.jpg', validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg'])], blank=False)
+    description = models.CharField(max_length=2000, blank=False)
+    link = models.CharField(max_length=250, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created']
+
+    def __str__(self):
+        return self.name

@@ -10,10 +10,11 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
-from .models import Message, userProfile
+from .models import Message, userProfile, Portfolio
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+from django.core.files.storage import FileSystemStorage
 
 def home(request):
     filters = request.GET.get('text') if request.GET.get('text') != None else ''
@@ -56,6 +57,7 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
+        login(request, user)
         messages.success(request, 'Вы успешно завершили регистрацию, теперь, пожалуйста, заполните свой профиль')
         return redirect('edit-profile')
     else:
@@ -199,4 +201,43 @@ def profile(request, username):
     return render(request, 'profile.html', context)
 
 def edit_profile(request):
-    return render(request, 'edit-profile.html')
+    user_profile = userProfile.objects.get(user=request.user)
+    if request.method == 'POST' and 'text-data' in request.POST:
+        cho = request.POST.get('edu-base')
+        school = request.POST.get('school-inputs')
+        contacts = request.POST.get('contacts-input')
+        role = request.POST.get('role-input')
+        skills = request.POST.get('skills-input')
+        exp = request.POST.get('exp-input')
+        user_profile.fullName = request.POST.get('user-name')
+        user_profile.education = cho
+        user_profile.edu_base = school
+        user_profile.contacts = contacts
+        user_profile.level = role
+        user_profile.chars = skills
+        user_profile.exp = exp
+        user_profile.save()
+        return redirect('edit-profile')
+    elif request.method == 'POST' and 'image-data' in request.POST:
+        fs = FileSystemStorage()
+        image = request.FILES.get('avatar-input', False)
+        file = request.FILES.get('resume-input', False)
+        if image:
+            user_profile.avatar = image
+        if file:
+            user_profile.resume = file
+        user_profile.save()
+        return redirect('edit-profile')
+    else:
+        return render(request, 'edit-profile.html', {'user_profile': user_profile})
+
+def watch_portfolio(request, username):
+    user = User.objects.get(username=username)
+    portfolios = Portfolio.objects.filter(user=user)
+    context = {
+        'portfolios': portfolios
+    }
+    return render(request, 'portfolio.html', context)
+
+def edit_portfolio(request):
+    return render(request, 'edit-portfolio.html')

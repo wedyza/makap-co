@@ -43,11 +43,13 @@
 			<button id="search-btn" type="submit"><img src="{% static 'img/search.png' %}" alt="search" width="85px"></button>
 			<button id="filter-btn" type="submit"><img src="{% static 'img/filters.png' %}" alt="filters" width="40px"></button>
 		</form>
-        {% for user in users %}
-            <div class="user-block">
-                <h1><a href="{% url 'profile' user.username %}">{{ user.username }}</a></h1>
-            </div>
-        {% endfor %}
+        <div class="user-container">
+            {% for user in users %}
+                <a href="{% url 'profile' user.username %}" class="user-block">
+                    <ul id="user">{{ user.username }}</ul>
+                </a>
+            {% endfor %}
+        </div>
 	</div>
 	<div class="about">
 		<hr size="5px" color="#553D8B" id="line"/>

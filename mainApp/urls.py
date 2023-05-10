@@ -18,5 +18,7 @@ urlpatterns = [
     path('getMessages/<str:username>/', views.get_messages, name='get-messages'),
 
     path('profile/<str:username>/', views.profile, name='profile'),
-    path('edit-profile/', views.edit_profile, name='edit-profile')
+    path('edit-profile/', views.edit_profile, name='edit-profile'),
+    path('watch-portfolio/<str:username>/', views.watch_portfolio, name='watch-portfolio'),
+    path('edit-portfolio/', views.edit_portfolio, name='edit-portfolio')
 ]

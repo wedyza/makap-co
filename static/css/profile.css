@@ -139,6 +139,7 @@ body{
   font-size: 22px;
   line-height: 22px;
   min-height: 22px;
+  text-align: center;
 }
 ::placeholder{
   text-align:center;

@@ -4,6 +4,7 @@
 <html lang="ru" dir="ltr">
   <head>
     <link rel="stylesheet" href="{% static 'css/edit-profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/no_underline.css' %}"
   </head>
   <body>
     <div id="nav-bar">
@@ -14,68 +15,68 @@
 		<div id="buttons">
 			<button class="btn" id="portfolio-list">Список портфолио</button>
 			<button class="btn" id="favorite">Избранное</button>
-			<button id="chat">
+			<a href="{% url 'chat_template' %}" id="chat">
 			<img src="{% static 'img/chat.png' %}" width="65px" alt="chat">
-			</button>
+			</a>
 			<button id="notice">
 			<img src="{% static 'img/notice.png' %}" width="50px" alt="notice">
 			</button>
 			<div id="enter">
-				<button class="btn" id="profile"><img id="profile-picture" src="{% static 'img/profile.png' %}" width="40px">Профиль</button>
-				<button class="btn" id="logout">Выйти</button>
+				<a href="{% url 'profile' request.user.username %}" class="btn" id="profile"><img id="profile-picture" src="{% static 'img/profile.png' %}" width="40px">Профиль</a>
+				<a href="{% url 'logout' %}" class="btn" id="logout">Выйти</a>
 			</div>
 		</div>
 	</div>
 	<div class="hero">
 		<form class="info" method="POST">
+            {% csrf_token %}
+			<input name="user-name" id="user-name" type="text" value="{{ user_profile.fullName }}" placeholder="Введите фио">
 			<div id="education">
 				<h5 class="info-labels">Образование:</h5>
-				<select id="edu-select">
-					<option value="1">Основное общее</option>
-					<option value="2">Среднее общее</option>
-					<option value="3">Среднее профессиональное</option>
-					<option value="4">Высшее</option>
+				<select name='edu-base' id="edu-select">
+					<option value="Основное общее">Основное общее</option>
+					<option value="Среднее общее">Среднее общее</option>
+					<option value="Среднее профессиональное">Среднее профессиональное</option>
+					<option value="Высшее">Высшее</option>
 				</select>
 			</div>
 			<div id="school-name">
 				<h5>Наименование учебного заведения:</h5>
-				<input class="info-inputs" id="school-input" type="text">
+				<input name="school-inputs" class="info-inputs" id="school-input" type="text" value="{{ user_profile.edu_base }}">
 			</div>
 			<div id="contacts">
 				<h5>Контактная информация:</h5>
-				<input class="info-inputs" id="contacts-input" type="text">
+				<input name="contacts-input" class="info-inputs" id="contacts-input" type="text" value="{{ user_profile.contacts }}">
 			</div>
 			<div id="fav-role">
 				<h5>Желаемая должность:</h5>
-				<input class="info-inputs" id="role-input" type="text">
+				<input name="role-input" class="info-inputs" id="role-input" type="text" value="{{ user_profile.level }}">
 			</div>
 			<div id="skills">
 				<h5>Навыки:</h5>
-				<input class="info-inputs" id="skills-input" type="text">
+				<input name="skills-input" class="info-inputs" id="skills-input" type="text" value="{{ user_profile.chars }}">
 			</div>
 			<div id="exp">
 				<h5>Опыт работы:</h5>
-				<input class="info-inputs" id="exp-input" type="text">
+				<input name="exp-input" class="info-inputs" id="exp-input" type="text" value="{{ user_profile.exp }}">
 			</div>
+            <div>
+                <button id="edit-profile" class="avatar-header-btn" type="submit" name="text-data">Сохранить изменения</button>
+            </div>
 		</form>
 		<div class="avatar-header">
-			<img class="avatar" src="{% static 'img/profile.png' %}">
-			<input id="user-name" type="text" placeholder="Введите свое ФИО"></input>
+			<img class="avatar" src="{{ user_profile.avatar.url }}">
 			<div class="btn-wrap">
-                <form method="POST">
-                    <input id="avatar-input" type="file" accept="image/*">
-                    <label for="avatar-input" id="avatar-btn">Добавить аватар</label>
+				<form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+					<input name='avatar-input' id="avatar-input" type="file" accept="image/*">
+					<label for="avatar-input" id="avatar-btn">Добавить аватар</label>
+					<input name="resume-input" id="resume-input" type="file" accept=".pdf">
+					<label for="resume-input" id="resume-btn">Прикрепить резюме</label>
+                    <button class="avatar-header-btn" id="edit-profile" type="submit" name="image-data">Сохранить профиль</button>
                 </form>
-				<input id="resume-input" type="file" accept=".pdf">
-				<label for="resume-input" id="resume-btn">Прикрепить резюме</label>
-				<button class="avatar-header-btn" id="open-portfolio">Открыть портфолио</button>
-				<button class="avatar-header-btn" id="edit-portfolio">Редактировать портфолио</button>
-				<button class="avatar-header-btn" id="edit-profile" type="submit">Сохранить профиль</button>
 			</div>
 		</div>
-        {% for msg in messages %}
-            <p>{{ msg }}</p>
-        {% endfor %}
 	</div>
 	</body>
 </html>

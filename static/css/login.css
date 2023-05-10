@@ -15,6 +15,7 @@ body{
   height: 100vh;
   overflow: hidden;
   color: #553d8b;
+  background: linear-gradient(110.2deg, rgba(203, 193, 253, 0.8) 7%, rgba(160, 168, 240, 0.8) 36.37%, rgba(151, 135, 203, 0.8) 55.83%, rgba(85, 61, 139, 0.8) 83.36%), linear-gradient(180.21deg, #FEF2FF 0.19%, #A0A8F0 27.03%);;
 }
 .center{
   position: absolute;

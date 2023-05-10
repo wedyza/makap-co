@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="{% static 'css/edit-portfolio.css' %}">
+  </head>
+  <body>
+    <div id="nav-bar">
+		<a href="{% url 'home' %}" id="header">
+			<img id="main-logo" src="{% static 'img/logo.png' %}" alt="logo">
+            <h1 id="name">HireMeNow</h1>
+        </a>
+		<div id="buttons">
+			<button class="btn" id="portfolio-list">Список портфолио</button>
+			<button class="btn" id="favorite">Избранное</button>
+			<a href="{% url 'chat_template' %}" id="chat">
+			<img src="{% static 'img/chat.png' %}" width="65px" alt="chat">
+			</a>
+			<button id="notice">
+			<img src="{% static 'img/notice.png' %}" width="50px" alt="notice">
+			</button>
+            {% if user.is_authenticated %}
+            <div id="enter">
+				<a href="{% url 'profile' request.user.username %}" class="btn" id="profile"><img id="profile-picture" src="{% static 'img/profile.png' %}" width="40px">Профиль</a>
+				<a href="{% url 'logout' %}" class="btn" id="logout">Выйти</a>
+			</div>
+            {% else %}
+			<div id="enter">
+				<a href="{% url 'register' %}" class="btn" id="reg">Регистрация</a>
+				<a href="{% url 'login' %}" class="btn" id="log">Вход</a>
+			</div>
+            {% endif %}
+		</div>
+	</div>
+	<div class="hero">
+          <div class="tabs">
+            <div class="tab-header">
+              <h2 id="project">Проекты</h2>
+                {% for portfolio in portfolios %}
+                    {% if portfolio == portfolios.first %}
+                        <div class="active">{{ portfolio.name }}</div>
+                    {% else %}
+                        <div>{{ portfolio.name }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="tab-body">
+                {% for portfolio in portfolios %}
+                    {% if portfolio == portfolios.first %}
+                        <div class="active">
+                            <h2>{{ portfolio.name }}</h2>
+                            <div id="nails">
+                                <img id="resnici" src="{{ portfolio.image.url }}">
+                            </div>
+                            <h3>Описание:</h3>
+                            <p>{{ portfolio.description }}</p>
+                            <h3>Ссылка на продукт:</h3>
+                            <p><a href="{{ portfolio.link }}" >{{ portfolio.link }}</a></p>
+                        </div>
+                    {% else %}
+                        <div>
+                            <h2>{{ portfolio.name }}</h2>
+                            <div id="nails">
+                                <img id="resnici" src="{{ portfolio.image.url }}">
+                            </div>
+                            <h3>Описание:</h3>
+                            <p>{{ portfolio.description }}</p>
+                            <h3>Ссылка на продукт:</h3>
+                            <p><a href="{{ portfolio.link }}" >{{ portfolio.link }}</a></p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+          </div>
+          <script src="{% static 'js/edit-portfolio.js' %}"></script>
+	</div>
+   </body>
+</html>
