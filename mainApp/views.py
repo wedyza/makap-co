@@ -19,8 +19,10 @@ from django.core.files.storage import FileSystemStorage
 def home(request):
     filters = request.GET.get('text') if request.GET.get('text') != None else ''
     users = User.objects.filter(username__icontains=filters)
+    profiles = userProfile.objects.all()
     context = {
-        'users': users
+        'users': users,
+        'profiles': profiles
     }
     return render(request, 'home.html', context)
 
@@ -241,3 +243,4 @@ def watch_portfolio(request, username):
 
 def edit_portfolio(request):
     return render(request, 'edit-portfolio.html')
+

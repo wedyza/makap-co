@@ -4,7 +4,6 @@
 <html lang="ru" dir="ltr">
   <head>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <link rel="stylesheet" href="{% static 'css/no_underline.css' %}"/>
   </head>
   <body>
     <div id="nav-bar">
@@ -38,18 +37,48 @@
 		<div id="tagline">
 			<h2>Построй свою карьеру вместе с нами!</h2>
 		</div>
-		<form class="search-box" method="GET">
-			<input type="text" name="text" placeholder="Введите имя пользователя">
-			<button id="search-btn" type="submit"><img src="{% static 'img/search.png' %}" alt="search" width="85px"></button>
+		<form autocomplete="off">
+			<div class="search-box">
+				<input id="input" type="text" placeholder="Введите имя пользователя">
+				<button id="search-btn" type="submit"><img src="{% static 'img/search.png' %}" alt="search" width="85px"></button>
 			<button id="filter-btn" type="submit"><img src="{% static 'img/filters.png' %}" alt="filters" width="40px"></button>
+			</div>
+			<ul id="list"></ul>
 		</form>
-        <div class="user-container">
-            {% for user in users %}
-                <a href="{% url 'profile' user.username %}" class="user-block">
-                    <ul id="user">{{ user.username }}</ul>
-                </a>
-            {% endfor %}
-        </div>
+		<script>
+    var names = [
+        {% for profile in profiles %}
+            "{{ profile.fullName }}",
+        {% endfor %}
+    ]
+    let sortedNames = names.sort();
+    let input = document.getElementById("input");
+    input.addEventListener("keyup", (e) => {
+        removeElements();
+        for (let i of sortedNames) {
+          if (
+            i.toLowerCase().includes(input.value.toLowerCase()) && input.value !== "") {
+            let listItem = document.createElement("li");
+            listItem.classList.add("list-items");
+            listItem.style.cursor = "pointer";
+            listItem.setAttribute("onclick", "displayNames('" + i + "')");
+            let word = "<b>" + i + "</b>"
+            listItem.innerHTML = word;
+            document.querySelector("#list").appendChild(listItem);
+          }
+        }
+      });
+      function displayNames(value) {
+        input.value = value;
+        removeElements();
+      }
+      function removeElements() {
+        let items = document.querySelectorAll(".list-items");
+        items.forEach((item) => {
+          item.remove();
+        });
+      }
+        </script>
 	</div>
 	<div class="about">
 		<hr size="5px" color="#553D8B" id="line"/>

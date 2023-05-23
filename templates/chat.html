@@ -77,16 +77,15 @@
                             temp="<div class='message incoming'><p>" + response.messages[key].body + "</p><small>" + response.messages[key].created.substring(11, 16) +"</small></div>";
                         else
                             temp="<div class='message outgoing'><p>" + response.messages[key].body + "</p><small>" + response.messages[key].created.substring(11, 16) +"</small></div>";
-                        console.log(response.messages[key]);
                         $(".messages-container").append(temp);
                     }
                 },
-                error: function(response){
+                error: function(){
                     console.log('An error occured')
                 }
             })};
         f();
-        setInterval(f,1000);
+        setInterval(f,1500);
         })
     </script>
 
@@ -104,8 +103,7 @@
                           body:$('#main-input').val(),
                         csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                   },
-                  success: function(data){
-                     {#alert(data)#}
+                  success: function(){
                       console.log('succes')
                   }
                 });
