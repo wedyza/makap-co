@@ -191,13 +191,12 @@ body{
   .tabs .tab-body > div {
     margin-left: 250px;
     width:40vw;
-    height:100vh;
+    height:120vh;
     padding:40vh 0px;
-    display: flex;
     position: relative;
     top: -40vh;
     flex-direction: column;
-  }
+}
   .tabs .tab-body div h2 {
     font-size:40px;
     width: 1000px;
@@ -260,7 +259,97 @@ body{
     border-radius: 20px;
     padding: 10px;
   }
-  
+.description{
+  display: flex;
+  padding: 10px;
+  line-height: 1.5;
+  border-radius: 5px;
+  border: 1px solid #553D8B;
+  background-color: #FEF2FF;
+  color: #553D8B;
+  resize: none;
+  font-size: 18px;
+}
+.img-container{
+  width: 90%;
+  margin: 20px auto 30px auto;
+}
+.img-container img{
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 250px;
+  max-height: 250px;
+  margin: auto;
+  border-radius: 20px;
+}
+figcaption{
+  margin: 10px 0 -25px 0;
+  text-align: center;
+}
+input[type="file"]{
+  display: none;
+}
+label{
+  display: block;
+  position: relative;
+  background-color: #A0A8F0;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  width: 400px;
+  padding: 8px 0;
+  border-radius: 54px;
+  border: none;
+  margin: auto;
+  cursor: pointer;
+  line-height: 22px;
+}
+.project-url{
+  width: 740px;
+  background-color: #FEF2FF;
+  color: #553D8B;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 22px;
+  padding: 3px;
+  border: 1px solid #553D8B;
+  border-radius: 10px;
+}
+#save-project{
+  padding: 8px;
+  height: 32.83px;
+  background: #A0A8F0;
+  border-radius: 54px;
+  align-items: center;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  border: none;
+  color: #553D8B;
+  width: 200px;
+}
+.project-name{
+  font-size:40px;
+  width: 840px;
+  background-color: #FEF2FF;
+  margin: auto;
+  color:#553D8B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  border: 1px solid #553D8B;
+  border-radius: 10px;
+}
+.project{
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 button:hover{
     filter: brightness(0.9);
   }

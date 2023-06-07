@@ -18,9 +18,6 @@
 			<a href="{% url 'chat_template' %}" id="chat">
 			<img src="{% static 'img/chat.png' %}" width="65px" alt="chat">
 			</a>
-			<a href="{% url 'home' %}" id="notice">
-			<img src="{% static 'img/notice.png' %}" width="50px" alt="notice">
-			</a>
             {% if user.is_authenticated %}
             <div id="enter">
 				<a href="{% url 'profile' request.user.username %}" class="btn" id="profile"><img id="profile-picture" src="{% static 'img/profile.png' %}" width="40px">Профиль</a>
@@ -69,7 +66,7 @@
                 {% if user_profile.resume %}
                     <a href="{{ user_profile.resume.url }}" class="avatar-header-btn" id="open-portfolio">Резюме</a>
                 {% endif %}
-				<button class="avatar-header-btn" id="edit-portfolio">Редактировать портфолио</button>
+				<a href="{% url 'edit-portfolio' %}" class="avatar-header-btn" id="edit-portfolio">Редактировать портфолио</a>
 				<a href="{% url 'edit-profile' %}" class="avatar-header-btn" id="edit-profile">Редактировать профиль</a>
 			{% endif %}
 			<a href="{% url 'watch-portfolio' user_profile.user.username%}" class="avatar-header-btn" id="open-portfolio">Открыть портфолио</a>

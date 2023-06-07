@@ -17,9 +17,6 @@
 			<a href="{% url 'chat_template' %}" id="chat">
 			<img src="{% static 'img/chat.png' %}" width="65px" alt="chat">
 			</a>
-			<button id="notice">
-			<img src="{% static 'img/notice.png' %}" width="50px" alt="notice">
-			</button>
             {% if user.is_authenticated %}
             <div id="enter">
 				<a href="{% url 'profile' request.user.username %}" class="btn" id="profile"><img id="profile-picture" src="{% static 'img/profile.png' %}" width="40px">Профиль</a>
@@ -59,7 +56,7 @@
                             <p><a href="{{ portfolio.link }}" >{{ portfolio.link }}</a></p>
                         </div>
                     {% else %}
-                        <div>
+                        <div class="">
                             <h2>{{ portfolio.name }}</h2>
                             <div id="nails">
                                 <img id="resnici" src="{{ portfolio.image.url }}">

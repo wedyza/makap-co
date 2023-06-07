@@ -1,0 +1,180 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="{% static 'css/edit-portfolio.css' %}">
+  </head>
+  <body>
+    <div id="nav-bar">
+		<a href="{% url 'home' %}" id="header">
+			<img id="main-logo" src="{% static 'img/logo.png'%}" alt="logo">
+			<h1 id="name">HireMeNow</h1>
+		</a>
+		<div id="buttons">
+			<button class="btn" id="portfolio-list">Список портфолио</button>
+			<button class="btn" id="favorite">Избранное</button>
+			<a href="{% url 'chat_template' %}" id="chat">
+			<img src="{% static 'img/chat.png' %}" width="65px" alt="chat">
+			</a>
+            {% if user.is_authenticated %}
+            <div id="enter">
+				<a href="{% url 'profile' request.user.username %}" class="btn" id="profile"><img id="profile-picture" src="{% static 'img/profile.png' %}" width="40px">Профиль</a>
+				<a href="{% url 'logout' %}" class="btn" id="logout">Выйти</a>
+			</div>
+            {% else %}
+			<div id="enter">
+				<a href="{% url 'register' %}" class="btn" id="reg">Регистрация</a>
+				<a href="{% url 'login' %}" class="btn" id="log">Вход</a>
+			</div>
+            {% endif %}
+		</div>
+	</div>
+{#    <div class="hero">#}
+{#          <div class="tabs">#}
+{#            <div class="tab-header">#}
+{#              <h2 id="project">Проекты</h2>#}
+{#                {% for portfolio in portfolios %}#}
+{#                    {% if portfolio == portfolios.first %}#}
+{#                        <div class="active">{{ portfolio.name }}</div>#}
+{#                    {% else %}#}
+{#                        <div>{{ portfolio.name }}</div>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#            <div class="tab-body">#}
+{#                {% for portfolio in portfolios %}#}
+{#                    {% if portfolio == portfolios.first %}#}
+{#                        <div class="active">#}
+{#                            <h2>{{ portfolio.name }}</h2>#}
+{#                            <div id="nails">#}
+{#                                <img id="resnici" src="{{ portfolio.image.url }}">#}
+{#                            </div>#}
+{#                            <h3>Описание:</h3>#}
+{#                            <p>{{ portfolio.description }}</p>#}
+{#                            <h3>Ссылка на продукт:</h3>#}
+{#                            <p><a href="{{ portfolio.link }}" >{{ portfolio.link }}</a></p>#}
+{#                        </div>#}
+{#                    {% else %}#}
+{#                        <div>#}
+{#                            <h2>{{ portfolio.name }}</h2>#}
+{#                            <div id="nails">#}
+{#                                <img id="resnici" src="{{ portfolio.image.url }}">#}
+{#                            </div>#}
+{#                            <h3>Описание:</h3>#}
+{#                            <p>{{ portfolio.description }}</p>#}
+{#                            <h3>Ссылка на продукт:</h3>#}
+{#                            <p><a href="{{ portfolio.link }}" >{{ portfolio.link }}</a></p>#}
+{#                        </div>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#          </div>#}
+	<div class="hero">
+          <div class="tabs">
+            <div class="tab-header">
+              <h2 id="project">Проекты</h2>
+                {% for portfolio in portfolios %}
+                    {% if portfolio == portfolios.first %}
+                        <div class="active">{{ portfolio.name }}</div>
+                    {% else %}
+                        <div>{{ portfolio.name }}</div>
+                    {% endif %}
+                {% endfor %}
+                {% if length < 4 %}
+              <div>Новый проект</div>
+                {% endif %}
+            </div>
+            <div class="tab-body">
+            {% for portfolio in portfolios %}
+                    {% if portfolio == portfolios.first %}
+                        <div class="active">
+                      <form method="POST" enctype="multipart/form-data">
+                          {% csrf_token %}
+                        <input class="project-name" type="text" placeholder="Название вашего проекта" name="name" value="{{ portfolio.name }}">
+                          <input type="text" value="{{ portfolio.id }}" name="id">
+                          {% if portfolio.image %}
+                          <figure class="img-container">
+                              <img id="chosen-img" src="{{ portfolio.image.url }}">
+                              <figcaption id="file-name">
+                              </figcaption>
+                          </figure>
+                          {% else %}
+                          <figure class="img-container">
+                              <img id="chosen-img" src="{% static 'img/photo404.jpg' %}">
+                              <figcaption id="file-name">
+                              </figcaption>
+                          </figure>
+                          {% endif %}
+                          <input type="file" id="upload-btn" accept="image/*" name="image">
+                          <label for="upload-btn">
+                            <img id="upload-icon" width="20px" src="{% static 'img/upload.png' %}">
+                            Выберите изображение
+                          </label>
+                          <h3>Описание:</h3>
+                          <textarea class="description" rows="4" cols="80" name="description" placeholder="Напишите описание проекта...">{{ portfolio.description }}</textarea>
+                          <h3>Ссылка на продукт:</h3>
+                          <div class="project">
+                            <input type="url" class="project-url" name="link" value="{{ portfolio.link }}">
+                            <button id="save-project" type="submit">Сохранить</button>
+                          </div>
+                      </form>
+                    </div>
+                    <script src="{% static 'js/upload.js' %}"></script>
+                    {% else %}
+                    <div>
+                      <form method="POST" enctype="multipart/form-data">
+                          {% csrf_token %}
+                        <input class="project-name" type="text" placeholder="Название вашего проекта" name="name" value="{{ portfolio.name }}">
+                          <input type="text" value="{{ portfolio.id }}" name="id">
+                          <figure class="img-container">
+                              <img id="chosen-img" src="{{ portfolio.image.url }}">
+                              <figcaption id="file-name">
+                              </figcaption>
+                          </figure>
+                          <input type="file" id="upload-btn" accept="image/*" name="image">
+                          <label for="upload-btn">
+                            <img id="upload-icon" width="20px" src="{% static 'img/upload.png' %}">
+                            Выберите изображение
+                          </label>
+                          <h3>Описание:</h3>
+                          <textarea class="description" rows="4" cols="80" name="description" placeholder="Напишите описание проекта...">{{ portfolio.description }}</textarea>
+                          <h3>Ссылка на продукт:</h3>
+                          <div class="project">
+                            <input type="url" class="project-url" name="link" value="{{ portfolio.link }}">
+                            <button id="save-project" type="submit">Сохранить</button>
+                          </div>
+                      </form>
+                    </div>
+                    <script src="{% static 'js/upload.js' %}"></script>
+                    {% endif %}
+                {% endfor %}
+                {% if length < 4 %}
+              <div>
+              <form method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                <input class="project-name" type="text" placeholder="Название вашего проекта" name="name">
+                  <figure class="img-container">
+                      <img id="chosen-img">
+                      <figcaption id="file-name">
+                      </figcaption>
+                  </figure>
+                  <input type="file" id="upload-btn" accept="image/*" name="image">
+                  <label for="upload-btn">
+                    <img id="upload-icon" width="20px" src="{% static 'img/upload.png' %}">
+                    Выберите изображение
+                  </label>
+                  <h3>Описание:</h3>
+                  <textarea class="description" rows="4" cols="80" name="description" placeholder="Напишите описание проекта..."></textarea>
+                  <h3>Ссылка на продукт:</h3>
+                  <div class="project">
+                    <input type="url" class="project-url" name="link">
+                    <button id="save-project" type="submit">Сохранить</button>
+                  </div>
+                  </form>
+                </div>
+                <script src="{% static 'js/upload.js' %}"></script>
+                {% endif %}
+            <script src="{% static 'js/edit-portfolio.js' %}"></script>
+	</div>
+   </body>
+</html>

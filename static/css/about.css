@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comfortaa';
+}
+body{
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(110.2deg, rgba(203, 193, 253, 0.8) 7%, rgba(160, 168, 240, 0.8) 36.37%, rgba(151, 135, 203, 0.8) 55.83%, rgba(85, 61, 139, 0.8) 83.36%), linear-gradient(180.21deg, #FEF2FF 0.19%, #A0A8F0 27.03%);;
+  overflow: hidden;
+  color: #553d8b;
+}
+#header{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 5px;
+}
+#nav-bar{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background: #CBC1FD;
+  border-bottom: 2px solid #553D8B;
+}
+#buttons{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+#main-logo{
+  width: 67px;
+  height: 67px;
+}
+#name{
+  position: flex;
+  display: flex;
+  width: 216px;
+  height: 40px;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 40px;
+}
+.btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: #A0A8F0;
+  border-radius: 25px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  border: none;
+  height: 45.83px;
+  color: #553d8b;
+}
+#portfolio-list{
+  width: 272.41px;
+  cursor: pointer;
+}
+#favorite{
+  width: 166.02px;
+  cursor: pointer;
+}
+#chat{
+  display: flex;
+  align-items: center;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #CBC1FD;
+}
+#notice{
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #CBC1FD;
+}
+#profile{
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 12px;
+}
+#profile-picture{
+  border: 2px solid#FEF2FF;
+  border-radius: 50%;
+  margin-right: 15px;
+  margin-left: -5px;
+}
+#logout{
+  width: 179.61px;
+  cursor: pointer;
+}
+#enter{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+::placeholder{
+  color: #553D8B;
+}
+.hero{
+    margin: 35px auto;
+    width: 1820px;
+    max-width: 85vw;
+    height: 930px;
+    max-height: 85vh;
+    background: #FEF2FF;
+    border-radius: 50px;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.images{
+    padding-top: 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: right;
+}
+.info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 14px 18px 36px;
+}
+.info p{
+    padding-bottom: 30px;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 22px;
+}
+.team-logo{
+    width: 339px;
+    height: 148px;
+    border-radius: 25px;
+    margin-left: 35px;
+}
+.team-photo{
+    width: 430px;
+    height: 350px;
+    border-radius: 25px;
+    margin-top: 62px;
+    margin-right: 27px;
+}
+button:hover{
+  filter: brightness(0.9);
+}
+button:active{
+  transform: translateY(2px);
+}

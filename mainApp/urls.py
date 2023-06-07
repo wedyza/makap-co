@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import activate, reset_password
+from .views import activate
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -8,9 +8,7 @@ urlpatterns = [
     path('login/', views.loginPage, name='login'),
     path('register/', views.registerPage, name='register'),
     path('logout/', views.logoutUser, name='logout'),
-    path('recovery/', views.recoveryPage, name='recovery'),
     path('activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', activate, name='activate'),
-    path('reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', reset_password, name='reset_password'),
 
     path('chat/<str:username>', views.chat, name='chat'),
     path('chat/', views.chat_template, name='chat_template'),
@@ -20,5 +18,7 @@ urlpatterns = [
     path('profile/<str:username>/', views.profile, name='profile'),
     path('edit-profile/', views.edit_profile, name='edit-profile'),
     path('watch-portfolio/<str:username>/', views.watch_portfolio, name='watch-portfolio'),
-    path('edit-portfolio/', views.edit_portfolio, name='edit-portfolio')
+    path('edit-portfolio/', views.edit_portfolio, name='edit-portfolio'),
+
+    path('about/', views.about, name='about')
 ]

@@ -4,7 +4,7 @@
 <html lang="ru" dir="ltr">
   <head>
     <link rel="stylesheet" href="{% static 'css/edit-profile.css' %}">
-    <link rel="stylesheet" href="{% static 'css/no_underline.css' %}"
+    <link rel="stylesheet" href="{% static 'css/no_underline.css' %}">
   </head>
   <body>
     <div id="nav-bar">
@@ -18,9 +18,6 @@
 			<a href="{% url 'chat_template' %}" id="chat">
 			<img src="{% static 'img/chat.png' %}" width="65px" alt="chat">
 			</a>
-			<button id="notice">
-			<img src="{% static 'img/notice.png' %}" width="50px" alt="notice">
-			</button>
 			<div id="enter">
 				<a href="{% url 'profile' request.user.username %}" class="btn" id="profile"><img id="profile-picture" src="{% static 'img/profile.png' %}" width="40px">Профиль</a>
 				<a href="{% url 'logout' %}" class="btn" id="logout">Выйти</a>
@@ -30,6 +27,7 @@
 	<div class="hero">
 		<form class="info" method="POST">
             {% csrf_token %}
+            <h5>Ваше ФИО</h5>
 			<input name="user-name" id="user-name" type="text" value="{{ user_profile.fullName }}" placeholder="Введите фио">
 			<div id="education">
 				<h5 class="info-labels">Образование:</h5>

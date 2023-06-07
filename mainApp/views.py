@@ -16,12 +16,16 @@ from django.db.models import Q
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.core.files.storage import FileSystemStorage
 
+nameEncounter = 0
 def home(request):
-    filters = request.GET.get('text') if request.GET.get('text') != None else ''
-    users = User.objects.filter(username__icontains=filters)
+    if request.method == 'GET':
+        fullname = request.GET.get('fullname')
+        userprofile = userProfile.objects.filter(fullName=fullname)
+        if (len(userprofile) > 0):
+            user = userprofile[0].user
+            return redirect('profile/' + user.username)
     profiles = userProfile.objects.all()
     context = {
-        'users': users,
         'profiles': profiles
     }
     return render(request, 'home.html', context)
@@ -65,20 +69,9 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse('Неправильная ссылка')
 
-def reset_password(request, uidb64, token):
-
-    if request.method == 'POST':
-        form = SetPasswordForm(request.POST)
-        if form.is_valid():
-            return HttpResponse('Все норм бро')
-
-    context = {
-        'form': SetPasswordForm()
-    }
-    return render(request, 'password_reset.html', context)
 
 def registerPage(request):
-
+    global nameEncounter
     if request.user.is_authenticated:
         return redirect('home')
 
@@ -89,8 +82,8 @@ def registerPage(request):
             user.is_active = False
             user.save()
 
-            user_profile = userProfile.objects.create(user=user)
-
+            user_profile = userProfile.objects.create(user=user, fullName="ИмяПользователя" + str(nameEncounter))
+            nameEncounter += 1
             current_site = get_current_site(request)
             mail_subject = 'Ссылка для активации аккаунта отправлена на вашу почту'
             message = render_to_string('acc_active_email.html', {
@@ -114,35 +107,6 @@ def registerPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('home')
-
-def recoveryPage(request):
-    if request.method == 'POST':
-        pass_reset_form = PasswordResetForm(request.POST)
-        if pass_reset_form.is_valid():
-            print('Я вроде работаю')
-            mail = pass_reset_form.cleaned_data['email']
-            try:
-                user = User.objects.get(email=mail)
-            except:
-                user = False
-                messages.error(request, 'Something went wrong..')
-            if user:
-                subject = 'Запрошен сброс пароля'
-                email_template_name = 'password_reset_email.html'
-                current_site = get_current_site(request)
-                msg_html = render_to_string(email_template_name, {
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user)),
-                    'token': account_activation_token.make_token(user),
-                })
-                email = EmailMessage(
-                    subject, msg_html, mail
-                )
-                email.send()
-            else:
-                messages.error(request, 'Такого пользователя не существует')
-    return render(request, 'recovery.html')
 
 @login_required(login_url='login')
 def chat(request, username):
@@ -221,7 +185,6 @@ def edit_profile(request):
         user_profile.save()
         return redirect('edit-profile')
     elif request.method == 'POST' and 'image-data' in request.POST:
-        fs = FileSystemStorage()
         image = request.FILES.get('avatar-input', False)
         file = request.FILES.get('resume-input', False)
         if image:
@@ -242,5 +205,45 @@ def watch_portfolio(request, username):
     return render(request, 'portfolio.html', context)
 
 def edit_portfolio(request):
-    return render(request, 'edit-portfolio.html')
+    user = request.user
+    if request.method == 'POST' and "id" in request.POST:
+        image = request.FILES.get('image', False)
+        description = request.POST.get('description')
+        name = request.POST.get('name')
+        link = request.POST.get('link')
+        id = request.POST.get('id')
 
+        print(request.FILES)
+        new_portfolio = Portfolio.objects.get(user=user, id=id)
+        if image:
+            new_portfolio.image = image
+        new_portfolio.description = description
+        new_portfolio.name = name
+        new_portfolio.link = link
+        new_portfolio.save()
+        return redirect('edit-portfolio')
+
+    elif request.method == 'POST':
+        image = request.FILES.get('image')
+        description = request.POST.get('description')
+        name = request.POST.get('name')
+        link = request.POST.get('link')
+        if image:
+            new_portfolio = Portfolio.objects.create(user=user, link=link, name=name, image=image, description=description)
+        else:
+            new_portfolio = Portfolio.objects.create(user=user, link=link, name=name, description=description)
+        print(request.POST)
+        return redirect('edit-portfolio')
+
+
+
+    portfolios = Portfolio.objects.filter(user=user)
+
+    context = {
+        'portfolios': portfolios,
+        'length': len(portfolios)
+    }
+    return render(request, 'my-portfolio.html', context)
+
+def about(request):
+    return render(request, 'about.html')

@@ -4,6 +4,8 @@
 <html lang="ru" dir="ltr">
   <head>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/no_underline.css' %}">
+    <meta name="viewport" content="width=1290">
   </head>
   <body>
     <div id="nav-bar">
@@ -16,9 +18,6 @@
 			<button class="btn" id="favorite">Избранное</button>
 			<a href="{% url 'chat_template' %}" id="chat">
 			<img src="{% static 'img/chat.png' %}" width="65px" alt="chat">
-			</a>
-			<a href="{% url 'home' %}" id="notice">
-			<img src="{% static 'img/notice.png' %}" width="50px" alt="notice">
 			</a>
             {% if user.is_authenticated %}
             <div id="enter">
@@ -39,19 +38,21 @@
 		</div>
 		<form autocomplete="off">
 			<div class="search-box">
-				<input id="input" type="text" placeholder="Введите имя пользователя">
+				<input name="fullname" id="input" type="text" placeholder="Введите имя пользователя">
 				<button id="search-btn" type="submit"><img src="{% static 'img/search.png' %}" alt="search" width="85px"></button>
 			<button id="filter-btn" type="submit"><img src="{% static 'img/filters.png' %}" alt="filters" width="40px"></button>
 			</div>
-			<ul id="list"></ul>
+            <div class="user-container">
+                <ul id="list"></ul>
+            </div>
 		</form>
 		<script>
-    var names = [
+    var sortedNames = [
         {% for profile in profiles %}
             "{{ profile.fullName }}",
         {% endfor %}
     ]
-    let sortedNames = names.sort();
+
     let input = document.getElementById("input");
     input.addEventListener("keyup", (e) => {
         removeElements();
@@ -82,7 +83,7 @@
 	</div>
 	<div class="about">
 		<hr size="5px" color="#553D8B" id="line"/>
-		<a>О нас</a>
+		<a href="{% url 'about' %}">О нас</a>
 	</div>
    </body>
 </html>
