@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html lang="ru" dir="ltr">
   <head>
-    <link rel="stylesheet" href="{% static 'css/edit-portfolio.css' %}">
+    <link rel="stylesheet" href="{% static 'css/edit-portfolio.css' %}"/>
+      <link rel="stylesheet" href="{% static 'css/no_underline.css' %}"/>
   </head>
   <body>
     <div id="nav-bar">
@@ -47,24 +48,28 @@
                     {% if portfolio == portfolios.first %}
                         <div class="active">
                             <h2>{{ portfolio.name }}</h2>
-                            <div id="nails">
-                                <img id="resnici" src="{{ portfolio.image.url }}">
-                            </div>
+                          <figure class="img-container">
+                              <img id="chosen-img" src="{{ portfolio.image.url }}">
+                              <figcaption id="file-name">
+                              </figcaption>
+                          </figure>
                             <h3>Описание:</h3>
-                            <p>{{ portfolio.description }}</p>
+                            <textarea class="description" rows="6" cols="80" placeholder="Напишите описание проекта..." readonly>{{ portfolio.description }}</textarea>
                             <h3>Ссылка на продукт:</h3>
-                            <p><a href="{{ portfolio.link }}" >{{ portfolio.link }}</a></p>
+                            <div class="url-block"><a href="{{ portfolio.link }}" class="project-url">{{ portfolio.link }}</a></div>
                         </div>
                     {% else %}
                         <div class="">
                             <h2>{{ portfolio.name }}</h2>
-                            <div id="nails">
-                                <img id="resnici" src="{{ portfolio.image.url }}">
-                            </div>
+                          <figure class="img-container">
+                              <img id="chosen-img" src="{{ portfolio.image.url }}">
+                              <figcaption id="file-name">
+                              </figcaption>
+                          </figure>
                             <h3>Описание:</h3>
-                            <p>{{ portfolio.description }}</p>
+                            <textarea class="description" rows="4" cols="80" placeholder="Напишите описание проекта...">{{ portfolio.description }}</textarea>
                             <h3>Ссылка на продукт:</h3>
-                            <p><a href="{{ portfolio.link }}" >{{ portfolio.link }}</a></p>
+                            <div class="url-block"><a href="{{ portfolio.link }}" class="project-url">{{ portfolio.link }}</a></div>
                         </div>
                     {% endif %}
                 {% endfor %}

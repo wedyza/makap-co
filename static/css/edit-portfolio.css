@@ -192,7 +192,7 @@ body{
     margin-left: 250px;
     width:40vw;
     height:120vh;
-    padding:40vh 0px;
+    padding: 40vh 0vh;
     position: relative;
     top: -40vh;
     flex-direction: column;
@@ -222,11 +222,19 @@ body{
     justify-content: left;
   }
   .tabs .tab-body div a{
-    margin-left: 40px;
-    margin-top: -40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 740px;
+  background-color: #FEF2FF;
+  color: #553D8B;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 22px;
+  padding: 3px;
+  border: 1px solid #553D8B;
+  border-radius: 10px;
+    padding-top: 5px;
+  }
+  .url-block{
+    margin-top: 15px;
   }
   .nails1{
     width: 170px;

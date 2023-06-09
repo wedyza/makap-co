@@ -4,6 +4,7 @@
 <html lang="ru" dir="ltr">
   <head>
     <link rel="stylesheet" href="{% static 'css/edit-portfolio.css' %}">
+    <link rel="stylesheet" href="{% static 'css/no_underline.css' %}">
   </head>
   <body>
     <div id="nav-bar">
@@ -91,7 +92,7 @@
                       <form method="POST" enctype="multipart/form-data">
                           {% csrf_token %}
                         <input class="project-name" type="text" placeholder="Название вашего проекта" name="name" value="{{ portfolio.name }}">
-                          <input type="text" value="{{ portfolio.id }}" name="id">
+                          <input type="hidden" value="{{ portfolio.id }}" name="id">
                           {% if portfolio.image %}
                           <figure class="img-container">
                               <img id="chosen-img" src="{{ portfolio.image.url }}">

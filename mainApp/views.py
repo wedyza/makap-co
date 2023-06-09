@@ -49,8 +49,6 @@ def loginPage(request):
         if user is not None:
             login(request, user)
             return redirect('home')
-        else:
-            messages.error(request, 'An error occured during authorisation.')
     return render(request, 'login.html')
 
 def activate(request, uidb64, token):

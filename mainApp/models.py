@@ -20,23 +20,6 @@ class Message(models.Model):
         return self.body
 
 
-
-
-class Portfolio(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=150, blank=False)
-    image = models.ImageField(upload_to='images/', default='../static/img/photo404.jpg', validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg'])], blank=True)
-    description = models.CharField(max_length=2000, blank=False)
-    link = models.CharField(max_length=250, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-
-
-    class Meta:
-        ordering = ['-created']
-
-    def __str__(self):
-        return self.name
-
 class userProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     resume = models.FileField(upload_to='files/', validators=[FileExtensionValidator(allowed_extensions=['pdf'])],
@@ -51,7 +34,27 @@ class userProfile(models.Model):
     level = models.CharField(max_length=100, blank=False, default='похоже, тут ничего нет...')
     chars = models.CharField(max_length=150, blank=False, default='похоже, тут ничего нет...')
     exp = models.CharField(max_length=200, blank=False, default='похоже, тут ничего нет...')
-    liked = models.ForeignKey(Portfolio, on_delete=models.SET_NULL, null=True)
+
 
     def __str__(self):
         return self.user.username
+
+
+class Portfolio(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=150, blank=False)
+    image = models.ImageField(upload_to='images/', default='../static/img/photo404.jpg', validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg'])], blank=True)
+    description = models.CharField(max_length=2000, blank=False)
+    link = models.CharField(max_length=250, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created']
+
+    def __str__(self):
+        return self.name
+
+class Like(models.Model):
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    created = models.DateTimeField(auto_now_add=True)

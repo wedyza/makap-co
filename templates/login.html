@@ -9,7 +9,7 @@
     <div class="center">
       <h1>Вход</h1>
         {% for message in messages %}
-            <h5>{{ message }}</h5>
+            <h4 style="text-align: center; margin-top: 5px;">{{ message }}</h4>
         {% endfor %}
       <form method="POST">
           {% csrf_token %}
