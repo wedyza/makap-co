@@ -4,6 +4,7 @@ from .views import activate
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('portfolio-list/', views.portfolios_list, name='portfolio-list'),
 
     path('login/', views.loginPage, name='login'),
     path('register/', views.registerPage, name='register'),

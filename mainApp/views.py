@@ -245,3 +245,14 @@ def edit_portfolio(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def portfolios_list(request):
+    userProfiles = userProfile.objects.all()
+    portfolios = Portfolio.objects.all()
+
+    context = {
+        'projects' : portfolios,
+        'profiles' : userProfiles
+    }
+
+    return render(request, 'portfolio-list.html', context)

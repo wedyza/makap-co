@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comfortaa';
+}
+body{
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(110.2deg, rgba(203, 193, 253, 0.8) 7%, rgba(160, 168, 240, 0.8) 36.37%, rgba(151, 135, 203, 0.8) 55.83%, rgba(85, 61, 139, 0.8) 83.36%), linear-gradient(180.21deg, #FEF2FF 0.19%, #A0A8F0 27.03%);;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-y: scroll;
+  color: #553d8b;
+}
+#header{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 5px;
+}
+#nav-bar{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+  background: #CBC1FD;
+  border-bottom: 2px solid #553D8B;
+}
+#buttons{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+#main-logo{
+  width: 67px;
+  height: 67px;
+}
+#name{
+  position: flex;
+  display: flex;
+  width: 216px;
+  height: 40px;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 40px;
+}
+.btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: #A0A8F0;
+  border-radius: 25px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  border: none;
+  height: 45.83px;
+  color: #553d8b;
+}
+#portfolio-list{
+  width: 272.41px;
+  cursor: pointer;
+}
+#favorite{
+  width: 166.02px;
+  cursor: pointer;
+}
+#chat{
+  display: flex;
+  align-items: center;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #CBC1FD;
+}
+#notice{
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #CBC1FD;
+}
+#profile{
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 12px;
+}
+#profile-picture{
+  border: 2px solid#FEF2FF;
+  border-radius: 50%;
+  margin-right: 15px;
+  margin-left: -5px;
+}
+#logout{
+  width: 179.61px;
+  cursor: pointer;
+}
+#enter{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.hero h2{
+  width: 773px;
+  height: 40px;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 40px;
+  margin: 13% 17%;
+}
+.search-box{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  box-sizing: border-box;
+  background: #CBC1FD;
+  width: 100%;
+  max-width: 1290px;
+  height: 85px;
+  border: 1px solid #553D8B;
+  border-radius: 20px;
+}
+.search-box input{
+  background: none;
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0;
+  color: #553D8B;
+  font-size: 25px;
+  margin-left: 30px;
+  transition: 0.4s;
+  line-height: 40px;
+}
+::placeholder{
+  color: #553D8B;
+}
+#search-btn{
+  border: none;
+  border-radius: 50%;
+  background: #CBC1FD;
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+#filter-btn{
+  background: #CBC1FD;
+  cursor: pointer;
+  width: 75px;
+  height: 75px;
+  border: none;
+  border-radius: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#line{
+  width: 100vw;
+}
+.about{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  left: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+}
+.about a{
+  margin: 10px 10px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 22px;
+}
+.project{
+    margin: 8px auto;
+    background-color: #CBC1FD;
+    width: 1000px;
+    height: 90px;
+    border-radius: 20px;
+    border: 1px solid #553D8B;
+}
+.info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 4px;
+}
+.username{
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 9px;
+  margin-right: 0px;
+}
+.mini-profile{
+  border: 2px solid#FEF2FF;
+  border-radius: 50%;
+}
+.creator{
+  margin-right: 15px;
+  margin-top: 14px;
+}
+.name{
+  font-size: 18px;
+  font-weight: 400;
+  margin-left: 15px;
+  margin-top: 12px;
+  width: 150px;
+}
+.projects-list{
+  display: flex;
+  flex-direction: row;
+  margin-left: 80px;
+}
+.products{
+  margin-top: 26px;
+  margin-right: 30px;
+}
+li{
+  width: 300px;
+  font-size: 14px;
+}
+.list{
+  list-style-type: none;
+}
+button:hover{
+  filter: brightness(0.9);
+}
+button:active{
+  transform: translateY(2px);
+}
