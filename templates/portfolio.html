@@ -5,6 +5,8 @@
   <head>
     <link rel="stylesheet" href="{% static 'css/edit-portfolio.css' %}"/>
       <link rel="stylesheet" href="{% static 'css/no_underline.css' %}"/>
+      <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+      <meta name="viewport" content="width=1400">
   </head>
   <body>
     <div id="nav-bar">
@@ -32,6 +34,7 @@
 		</div>
 	</div>
 	<div class="hero">
+        <input id="sender" value="{{ request.user.username }}" type="hidden"/>
           <div class="tabs">
             <div class="tab-header">
               <h2 id="project">Проекты</h2>
@@ -46,20 +49,38 @@
             <div class="tab-body">
                 {% for portfolio in portfolios %}
                     {% if portfolio == portfolios.first %}
-                        <div class="active">
-                            <h2>{{ portfolio.name }}</h2>
-                          <figure class="img-container">
-                              <img id="chosen-img" src="{{ portfolio.image.url }}">
-                              <figcaption id="file-name">
-                              </figcaption>
-                          </figure>
-                            <h3>Описание:</h3>
-                            <textarea class="description" rows="6" cols="80" placeholder="Напишите описание проекта..." readonly>{{ portfolio.description }}</textarea>
-                            <h3>Ссылка на продукт:</h3>
-                            <div class="url-block"><a href="{{ portfolio.link }}" class="project-url">{{ portfolio.link }}</a></div>
-                        </div>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="to-right active">
+                                <h2>{{ portfolio.name }}</h2>
+                                <input id="id" value="{{ portfolio.id }}" type="hidden"/>
+                              <figure class="img-container">
+                                  <img id="chosen-img" src="{{ portfolio.image.url }}">
+                                  <figcaption id="file-name">
+                                  </figcaption>
+                              </figure>
+                                <h3>Описание:</h3>
+                                <textarea class="description" rows="6" cols="80" placeholder="Напишите описание проекта..." readonly>{{ portfolio.description }}</textarea>
+                                <h3>Ссылка на продукт:</h3>
+                                <div class="url-block"><a href="{{ portfolio.link }}" class="project-url">{{ portfolio.link }}</a></div>
+                                {% if portfolio in likes %}
+                                <div class="like-button">
+                                  <div class="heart-bg">
+                                    <div class="heart-icon liked"></div>
+                                  </div>
+                                </div>
+                                    {% else %}
+                                <div class="like-button">
+                                  <div class="heart-bg">
+                                    <div class="heart-icon"></div>
+                                  </div>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                        </form>
                     {% else %}
-                        <div class="">
+                        <div class="to-right">
                             <h2>{{ portfolio.name }}</h2>
                           <figure class="img-container">
                               <img id="chosen-img" src="{{ portfolio.image.url }}">
@@ -69,12 +90,49 @@
                             <h3>Описание:</h3>
                             <textarea class="description" rows="4" cols="80" placeholder="Напишите описание проекта...">{{ portfolio.description }}</textarea>
                             <h3>Ссылка на продукт:</h3>
-                            <div class="url-block"><a href="{{ portfolio.link }}" class="project-url">{{ portfolio.link }}</a></div>
+                            {% if portfolio in likes %}
+                                <div class="like-button">
+                                  <div class="heart-bg">
+                                    <div class="heart-icon liked"></div>
+                                  </div>
+                                </div>
+                                    {% else %}
+                                <div class="like-button">
+                                  <div class="heart-bg">
+                                    <div class="heart-icon"></div>
+                                  </div>
+                                </div>
+                                {% endif %}
                         </div>
                     {% endif %}
                 {% endfor %}
           </div>
           <script src="{% static 'js/edit-portfolio.js' %}"></script>
+          <script>
+            const heartIcon = document.querySelector(".like-button .heart-icon");
+            const likesAmountLabel = document.querySelector(".like-button .likes-amount");
+
+            heartIcon.addEventListener("click", () => {
+              heartIcon.classList.toggle("liked");
+            });
+          </script>
+          <script>
+              $(document).on('click', '.heart-bg', function(e){
+                  $.ajax({
+                      type:'POST',
+                      url:'/like/',
+                      data:{
+                          user:$('#sender').val(),
+                          id:$('#id').val(),
+                          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                      },
+                      succes: function (){
+                          console.log('succes');
+                      }
+                  })
+              });
+          </script>
 	</div>
    </body>
+
 </html>

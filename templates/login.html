@@ -4,6 +4,7 @@
 <html lang="ru" dir="ltr">
   <head>
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+      <meta name="viewport" content="width=1290">
   </head>
   <body>
     <div class="center">
@@ -23,7 +24,6 @@
           <span></span>
           <label>Пароль</label>
         </div>
-        <a href="recovery.html" class="pass">Забыли пароль?</a>
         <input type="submit" value="Войти">
         <div class="signup_link">
           Нет учетной записи? <a href="{% url 'register' %}">Зарегистрируйтесь</a>

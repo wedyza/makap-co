@@ -4,6 +4,7 @@
   <head>
     <link rel="stylesheet" href="{% static 'css/portfolio-list.css' %}">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <meta name="viewport" content="width=1000">
   </head>
   <body>
     <div id="nav-bar">
@@ -30,16 +31,17 @@
             {% endif %}
 		</div>
 	</div>
+    <div class="holder">
     {% for profile in profiles %}
         <div class="project">
               <div class="info">
                     <div class="username">
                         <h3 class="creator">Автор:</h3>
-                        <img src="{{ profile.avatar.url }}" width="55px" class="mini-profile">
+                        <img src="{{ profile.avatar.url }}" width="55px" height="55px" class="mini-profile">
                         <a class="name" href="{% url 'profile' profile.user.username %}">{{ profile.fullName }}</a>
                     </div>
+                    <h3 class="products">Проекты:</h3>
                     <div class="projects-list">
-                      <h3 class="products">Проекты:</h3>
                       <ul class="list">
                           {% for project in projects %}
                               {% if project.user == profile.user %}
@@ -58,8 +60,8 @@
                         <img src="{% static 'img/profile.png' %}" width="55px" class="mini-profile">
                         <a class="name">username</a>
                     </div>
-                    <div class="projects-list">
                       <h3 class="products">Проекты:</h3>
+                    <div class="projects-list">
                       <ul class="list">
                         <li>Проект 1</li>
                         <li>Проект 2</li>
@@ -69,5 +71,6 @@
                    </div>
               </div>
         </div>
+    </div>
     </body>
 </html>

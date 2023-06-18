@@ -109,14 +109,21 @@ body{
 ::placeholder{
   color: #553D8B;
 }
+.holder{
+  width: 1400px;
+  margin: 0px auto;
+}
 .hero{
     margin: 35px auto;
-    width: 1820px;
-    max-width: 85vw;
+    max-width: 1400px;
+    width: 100%;
     height: 2030px;
     max-height: 85vh;
     background: #FEF2FF;
     border-radius: 50px;
+}
+.to-right{
+  margin-left: 60px;
 }
 #project{
   display: flex;
@@ -189,7 +196,7 @@ body{
     transition:all 400ms ease-in-out;
   }
   .tabs .tab-body > div {
-    margin-left: 250px;
+    margin-left: 100px;
     width:40vw;
     height:120vh;
     padding: 40vh 0vh;
@@ -200,7 +207,6 @@ body{
   .tabs .tab-body div h2 {
     font-size:40px;
     width: 1000px;
-    margin-left: -100px;
     margin-bottom:10px;
     color:#553D8B;
     display: flex;
@@ -364,3 +370,50 @@ button:hover{
   button:active{
     transform: translateY(2px);
   }
+/*sdasdadasd*/
+.like-button .heart-icon {
+  height: 100px;
+  width: 100px;
+  background: url("../img/img.png");
+  background-position: left;
+  cursor: pointer;
+}
+
+.like-button .heart-icon.liked {
+  animation: like-anim 0.7s steps(28) forwards;
+}
+
+@keyframes like-anim {
+  to {
+    background-position: right;
+  }
+}
+
+.like-button .heart-bg {
+  background: rgba(255, 192, 200, 0);
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 100ms ease;
+}
+
+.like-button .heart-bg:hover {
+  background: rgba(255, 192, 200, 0.7);
+}
+
+.like-button {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.like-button .likes-amount {
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+  color: #888;
+  font-weight: 900;
+  margin-left: 6px;
+}

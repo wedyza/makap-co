@@ -57,4 +57,7 @@ class Portfolio(models.Model):
 class Like(models.Model):
     portfolio = models.ForeignKey(Portfolio, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    created = models.DateTimeField(auto_now_add=True)
+    profile = models.ForeignKey(userProfile, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.user.username + " лайкнул " + self.portfolio.name

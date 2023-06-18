@@ -19,8 +19,9 @@ main{
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  width: 80%;
+  width: 100%;
   border-radius: 10px;
+  max-width: 1536px;
 }
 header{
   background-color:#CBC1FD;
@@ -57,7 +58,8 @@ header button{
 }
 .users-window{
   overflow-y: scroll;
-  width: 64vw;
+  overflow-x: hidden;
+  width: 60vw;
   height: 74vh;
   color: #553D8B;
   background-color: #a0a8f0;
@@ -77,6 +79,7 @@ h4{
   background-color: #FEF2FF;
   padding: 3px 8px;
   border-radius: 50px;
+  margin-right: 10px;
 }
 .users-list p{
   font-size: 15px;
@@ -97,7 +100,7 @@ h4{
 
 .chats{
   position: relative;
-  width: 64vw;
+  width: 61vw;
   max-width: 1200px;
   height: 64vh;
   max-height: 800px;

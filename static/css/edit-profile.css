@@ -109,6 +109,10 @@ body{
 ::placeholder{
   color: #553D8B;
 }
+.holder{
+  width: 1820px;
+  margin: 0px auto;
+}
 .hero{
     margin: 35px auto;
     width: 1820px;

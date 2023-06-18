@@ -15,7 +15,7 @@
 		</a>
 		<div id="buttons">
 			<a href="{% url 'portfolio-list' %}" class="btn" id="portfolio-list">Список портфолио</a>
-			<button class="btn" id="favorite">Избранное</button>
+			<a href="{% url 'favorite' %}" class="btn" id="favorite">Избранное</a>
 			<a href="{% url 'chat_template' %}" id="chat">
 			<img src="{% static 'img/chat.png' %}" width="65px" alt="chat">
 			</a>
@@ -33,19 +33,17 @@
 		</div>
 	</div>
 	<div class="hero">
-		<div id="tagline">
-			<h2>Построй свою карьеру вместе с нами!</h2>
-		</div>
-		<form autocomplete="off">
-			<div class="search-box">
-				<input name="fullname" id="input" type="text" placeholder="Введите имя пользователя">
-				<button id="search-btn" type="submit"><img src="{% static 'img/search.png' %}" alt="search" width="85px"></button>
-			<button id="filter-btn" type="submit"><img src="{% static 'img/filters.png' %}" alt="filters" width="40px"></button>
-			</div>
-            <div class="user-container">
-                <ul id="list"></ul>
-            </div>
-		</form>
+            <h2 id="tagline">Построй свою карьеру вместе с нами!</h2>
+            <form autocomplete="off">
+                <div class="search-box">
+                    <input id="input" type="text" placeholder="Введите имя пользователя">
+                    <button id="search-btn" type="submit"><img src="{% static 'img/search.png' %}" alt="search" width="85px"></button>
+                    <button id="filter-btn" type="submit"><img src="{% static 'img/filters.png' %}" alt="filters" width="40px"></button>
+                </div>
+                <div class="user-container">
+                    <ul id="list"></ul>
+                </div>
+            </form>
 		<script>
     var sortedNames = [
         {% for profile in profiles %}

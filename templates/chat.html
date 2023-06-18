@@ -5,9 +5,11 @@
   <head>
     <link rel="stylesheet" href="{% static 'css/chat.css' %}">
       <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+      <meta name="viewport" content="width=1536">
   </head>
   <body>
-    <main>
+  <div class="holder">
+  <main>
 		<header>
 			<a href="{% url 'home' %}">
                 <div class="title">
@@ -61,7 +63,7 @@
         {% endif %}
 		</div>
 	</main>
-
+    </div>
     <script>
     $(document).ready(function(){
         var f = function(){
@@ -88,7 +90,6 @@
         setInterval(f,1500);
         })
     </script>
-
    </body>
 
     <script>

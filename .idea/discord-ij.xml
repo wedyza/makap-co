@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DiscordIJSettingProjectState">
+    <option name="fileDetailFormat" value="Проблемы тут: %projectName% - %fileProblems% чегооо" />
+    <option name="fileStateFormat" value="корячится в файле: %fileName%" />
+    <option name="projectDetailFormat" value="%projectProblems% тут все хреново" />
+    <option name="projectStateFormat" value="Пытается скуканить: %projectName%" />
+  </component>
+</project>

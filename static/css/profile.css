@@ -111,12 +111,12 @@ body{
 }
 .hero{
     margin: 35px auto;
-    width: 1820px;
-    max-width: 85vw;
+    max-width: 1520px;
     height: 930px;
     max-height: 85vh;
     background: #FEF2FF;
     border-radius: 50px;
+    width: 100%;
 }
 .avatar-header{
   display: flex;
@@ -143,6 +143,10 @@ body{
 }
 ::placeholder{
   text-align:center;
+}
+.holder{
+  width: 1520px;
+  margin: 0px auto;
 }
 .avatar{
   width: 200px;

@@ -5,6 +5,7 @@
   <head>
     <link rel="stylesheet" href="{% static 'css/edit-profile.css' %}">
     <link rel="stylesheet" href="{% static 'css/no_underline.css' %}">
+      <meta name="viewport" content="width=1520">
   </head>
   <body>
     <div id="nav-bar">
@@ -24,57 +25,59 @@
 			</div>
 		</div>
 	</div>
-	<div class="hero">
-		<form class="info" method="POST">
-            {% csrf_token %}
-            <h5>Ваше ФИО</h5>
-			<input name="user-name" id="user-name" type="text" value="{{ user_profile.fullName }}" placeholder="Введите фио">
-			<div id="education">
-				<h5 class="info-labels">Образование:</h5>
-				<select name='edu-base' id="edu-select">
-					<option value="Основное общее">Основное общее</option>
-					<option value="Среднее общее">Среднее общее</option>
-					<option value="Среднее профессиональное">Среднее профессиональное</option>
-					<option value="Высшее">Высшее</option>
-				</select>
-			</div>
-			<div id="school-name">
-				<h5>Наименование учебного заведения:</h5>
-				<input name="school-inputs" class="info-inputs" id="school-input" type="text" value="{{ user_profile.edu_base }}">
-			</div>
-			<div id="contacts">
-				<h5>Контактная информация:</h5>
-				<input name="contacts-input" class="info-inputs" id="contacts-input" type="text" value="{{ user_profile.contacts }}">
-			</div>
-			<div id="fav-role">
-				<h5>Желаемая должность:</h5>
-				<input name="role-input" class="info-inputs" id="role-input" type="text" value="{{ user_profile.level }}">
-			</div>
-			<div id="skills">
-				<h5>Навыки:</h5>
-				<input name="skills-input" class="info-inputs" id="skills-input" type="text" value="{{ user_profile.chars }}">
-			</div>
-			<div id="exp">
-				<h5>Опыт работы:</h5>
-				<input name="exp-input" class="info-inputs" id="exp-input" type="text" value="{{ user_profile.exp }}">
-			</div>
-            <div>
-                <button id="edit-profile" class="avatar-header-btn" type="submit" name="text-data">Сохранить изменения</button>
+    <div class="holder">
+        <div class="hero">
+            <form class="info" method="POST">
+                {% csrf_token %}
+                <h5>Ваше ФИО</h5>
+                <input name="user-name" id="user-name" type="text" value="{{ user_profile.fullName }}" placeholder="Введите фио">
+                <div id="education">
+                    <h5 class="info-labels">Образование:</h5>
+                    <select name='edu-base' id="edu-select">
+                        <option value="Основное общее">Основное общее</option>
+                        <option value="Среднее общее">Среднее общее</option>
+                        <option value="Среднее профессиональное">Среднее профессиональное</option>
+                        <option value="Высшее">Высшее</option>
+                    </select>
+                </div>
+                <div id="school-name">
+                    <h5>Наименование учебного заведения:</h5>
+                    <input name="school-inputs" class="info-inputs" id="school-input" type="text" value="{{ user_profile.edu_base }}">
+                </div>
+                <div id="contacts">
+                    <h5>Контактная информация:</h5>
+                    <input name="contacts-input" class="info-inputs" id="contacts-input" type="text" value="{{ user_profile.contacts }}">
+                </div>
+                <div id="fav-role">
+                    <h5>Желаемая должность:</h5>
+                    <input name="role-input" class="info-inputs" id="role-input" type="text" value="{{ user_profile.level }}">
+                </div>
+                <div id="skills">
+                    <h5>Навыки:</h5>
+                    <input name="skills-input" class="info-inputs" id="skills-input" type="text" value="{{ user_profile.chars }}">
+                </div>
+                <div id="exp">
+                    <h5>Опыт работы:</h5>
+                    <input name="exp-input" class="info-inputs" id="exp-input" type="text" value="{{ user_profile.exp }}">
+                </div>
+                <div>
+                    <button id="edit-profile" class="avatar-header-btn" type="submit" name="text-data">Сохранить изменения</button>
+                </div>
+            </form>
+            <div class="avatar-header">
+                <img class="avatar" src="{{ user_profile.avatar.url }}">
+                <div class="btn-wrap">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input name='avatar-input' id="avatar-input" type="file" accept="image/*">
+                        <label for="avatar-input" id="avatar-btn">Добавить аватар</label>
+                        <input name="resume-input" id="resume-input" type="file" accept=".pdf">
+                        <label for="resume-input" id="resume-btn">Прикрепить резюме</label>
+                        <button class="avatar-header-btn" id="edit-profile" type="submit" name="image-data">Сохранить профиль</button>
+                    </form>
+                </div>
             </div>
-		</form>
-		<div class="avatar-header">
-			<img class="avatar" src="{{ user_profile.avatar.url }}">
-			<div class="btn-wrap">
-				<form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-					<input name='avatar-input' id="avatar-input" type="file" accept="image/*">
-					<label for="avatar-input" id="avatar-btn">Добавить аватар</label>
-					<input name="resume-input" id="resume-input" type="file" accept=".pdf">
-					<label for="resume-input" id="resume-btn">Прикрепить резюме</label>
-                    <button class="avatar-header-btn" id="edit-profile" type="submit" name="image-data">Сохранить профиль</button>
-                </form>
-			</div>
-		</div>
-	</div>
+        </div>
+        </div>
 	</body>
 </html>

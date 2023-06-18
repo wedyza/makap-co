@@ -10,7 +10,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
-from .models import Message, userProfile, Portfolio
+from .models import Message, userProfile, Portfolio, Like
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
@@ -36,7 +36,7 @@ def loginPage(request):
         return redirect('home')
 
     if request.method == 'POST':
-        username = request.POST.get('username').lower()
+        username = request.POST.get('username')
         password = request.POST.get('password')
 
         try:
@@ -194,11 +194,18 @@ def edit_profile(request):
     else:
         return render(request, 'edit-profile.html', {'user_profile': user_profile})
 
+@login_required(login_url="login")
 def watch_portfolio(request, username):
     user = User.objects.get(username=username)
     portfolios = Portfolio.objects.filter(user=user)
+    likes = []
+    for p in portfolios:
+        local = Like.objects.filter(user=request.user, portfolio=p)
+        if (len(local) == 1):
+            likes.append(p)
     context = {
-        'portfolios': portfolios
+        'portfolios': portfolios,
+        'likes': likes
     }
     return render(request, 'portfolio.html', context)
 
@@ -249,10 +256,34 @@ def about(request):
 def portfolios_list(request):
     userProfiles = userProfile.objects.all()
     portfolios = Portfolio.objects.all()
-
     context = {
         'projects' : portfolios,
         'profiles' : userProfiles
     }
 
     return render(request, 'portfolio-list.html', context)
+
+@login_required(login_url="login")
+def like(request):
+    user = User.objects.get(username=request.POST.get("user"))
+    portfolio = Portfolio.objects.get(id=request.POST.get("id"))
+    profile = userProfile.objects.get(user=user)
+    print(portfolio.name)
+    Likes = Like.objects.filter(user=user, portfolio=portfolio, profile=profile)
+    if (len(Likes) == 1):
+        Likes[0].delete()
+    else:
+        like = Like.objects.create(user=user, portfolio=portfolio, profile=profile)
+        like.save()
+
+    return HttpResponse('gut')
+
+@login_required(login_url="login")
+def favorite(request):
+    likes = Like.objects.filter(user=request.user)
+
+    context = {
+        'likes': likes
+    }
+
+    return render(request, 'favorite.html', context)
