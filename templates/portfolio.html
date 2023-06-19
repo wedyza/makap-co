@@ -11,12 +11,12 @@
   <body>
     <div id="nav-bar">
 		<a href="{% url 'home' %}" id="header">
-			<img id="main-logo" src="{% static 'img/logo.png' %}" alt="logo">
-            <h1 id="name">HireMeNow</h1>
-        </a>
+			<img id="main-logo" src="{% static 'img/logo.png'%}" alt="logo">
+			<h1 id="name">HireMeNow</h1>
+		</a>
 		<div id="buttons">
-			<button class="btn" id="portfolio-list">Список портфолио</button>
-			<button class="btn" id="favorite">Избранное</button>
+			<a href="{% url 'portfolio-list' %}" class="btn" id="portfolio-list">Список портфолио</a>
+			<a href="{% url 'favorite' %}" class="btn" id="favorite">Избранное</a>
 			<a href="{% url 'chat_template' %}" id="chat">
 			<img src="{% static 'img/chat.png' %}" width="65px" alt="chat">
 			</a>
@@ -49,7 +49,7 @@
             <div class="tab-body">
                 {% for portfolio in portfolios %}
                     {% if portfolio == portfolios.first %}
-                        <form method="POST">
+                        <form method="POST" class="like-form">
                             {% csrf_token %}
                             <div class="to-right active">
                                 <h2>{{ portfolio.name }}</h2>
@@ -80,8 +80,11 @@
                             </div>
                         </form>
                     {% else %}
+                        <form method="POST" class="like-form">
+                        {% csrf_token %}
                         <div class="to-right">
                             <h2>{{ portfolio.name }}</h2>
+                             <input id="id" value="{{ portfolio.id }}" type="hidden"/>
                           <figure class="img-container">
                               <img id="chosen-img" src="{{ portfolio.image.url }}">
                               <figcaption id="file-name">
@@ -104,33 +107,39 @@
                                 </div>
                                 {% endif %}
                         </div>
+                        </form>
                     {% endif %}
                 {% endfor %}
           </div>
           <script src="{% static 'js/edit-portfolio.js' %}"></script>
           <script>
-            const heartIcon = document.querySelector(".like-button .heart-icon");
-            const likesAmountLabel = document.querySelector(".like-button .likes-amount");
+            const heartIcon = document.querySelectorAll(".like-button .heart-icon");
 
-            heartIcon.addEventListener("click", () => {
-              heartIcon.classList.toggle("liked");
-            });
+            heartIcon.forEach((item) => {
+                item.addEventListener('click', () => {
+                    item.classList.toggle("liked");
+                });
+                })
           </script>
           <script>
-              $(document).on('click', '.heart-bg', function(e){
-                  $.ajax({
-                      type:'POST',
-                      url:'/like/',
-                      data:{
-                          user:$('#sender').val(),
-                          id:$('#id').val(),
-                          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-                      },
-                      succes: function (){
-                          console.log('succes');
-                      }
-                  })
-              });
+                $(".like-form").each(function(index, element) {
+                    $(element).find(".heart-bg").click(() => {
+                        $.ajax(
+                            {
+                                type:'POST',
+                                url:'/like/',
+                                data:{
+                                    id:$(element).find("#id").val(),
+                                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                                },
+                                succes: function(){
+                                    console.log('succes');
+                                }
+
+                            }
+                        )
+                    })
+                });
           </script>
 	</div>
    </body>

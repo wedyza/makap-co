@@ -265,9 +265,9 @@ def portfolios_list(request):
 
 @login_required(login_url="login")
 def like(request):
-    user = User.objects.get(username=request.POST.get("user"))
+    user = request.user
     portfolio = Portfolio.objects.get(id=request.POST.get("id"))
-    profile = userProfile.objects.get(user=user)
+    profile = userProfile.objects.get(user=portfolio.user)
     print(portfolio.name)
     Likes = Like.objects.filter(user=user, portfolio=portfolio, profile=profile)
     if (len(Likes) == 1):

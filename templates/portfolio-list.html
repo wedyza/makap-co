@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{% static 'css/portfolio-list.css' %}">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <meta name="viewport" content="width=1000">
+    <link rel="stylesheet" href="{% static 'css/no_underline.css' %}">
   </head>
   <body>
     <div id="nav-bar">
@@ -13,8 +14,8 @@
 			<h1 id="name">HireMeNow</h1>
 		</a>
 		<div id="buttons">
-			<button class="btn" id="portfolio-list">Список портфолио</button>
-			<button class="btn" id="favorite">Избранное</button>
+			<a href="{% url 'portfolio-list' %}" class="btn" id="portfolio-list">Список портфолио</a>
+			<a href="{% url 'favorite' %}" class="btn" id="favorite">Избранное</a>
 			<a href="{% url 'chat_template' %}" id="chat">
 			<img src="{% static 'img/chat.png' %}" width="65px" alt="chat">
 			</a>
@@ -53,24 +54,6 @@
               </div>
         </div>
   {% endfor %}
-        <div class="project">
-              <div class="info">
-                    <div class="username">
-                        <h3 class="creator">Автор:</h3>
-                        <img src="{% static 'img/profile.png' %}" width="55px" class="mini-profile">
-                        <a class="name">username</a>
-                    </div>
-                      <h3 class="products">Проекты:</h3>
-                    <div class="projects-list">
-                      <ul class="list">
-                        <li>Проект 1</li>
-                        <li>Проект 2</li>
-                        <li>Проект 3</li>
-                        <li>Проект 4</li>
-                      </ul>
-                   </div>
-              </div>
-        </div>
     </div>
     </body>
 </html>

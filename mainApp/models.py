@@ -42,10 +42,10 @@ class userProfile(models.Model):
 
 class Portfolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    name = models.CharField(max_length=150, blank=False)
+    name = models.CharField(max_length=150, blank=False, default="Какой-то проект")
     image = models.ImageField(upload_to='images/', default='../static/img/photo404.jpg', validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg'])], blank=True)
-    description = models.CharField(max_length=2000, blank=False)
-    link = models.CharField(max_length=250, blank=True)
+    description = models.CharField(max_length=2000, blank=False, default="Описание какого-то проекта")
+    link = models.CharField(max_length=250, blank=True, default="Какая-то ссылка")
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

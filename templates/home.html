@@ -36,9 +36,8 @@
             <h2 id="tagline">Построй свою карьеру вместе с нами!</h2>
             <form autocomplete="off">
                 <div class="search-box">
-                    <input id="input" type="text" placeholder="Введите имя пользователя">
+                    <input id="input" type="text" name="fullname" placeholder="Введите имя пользователя">
                     <button id="search-btn" type="submit"><img src="{% static 'img/search.png' %}" alt="search" width="85px"></button>
-                    <button id="filter-btn" type="submit"><img src="{% static 'img/filters.png' %}" alt="filters" width="40px"></button>
                 </div>
                 <div class="user-container">
                     <ul id="list"></ul>
